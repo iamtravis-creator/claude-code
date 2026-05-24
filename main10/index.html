@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Main10 Cleaning — Bond-Back Guarantee Melbourne</title>
+  <meta name="description" id="page-desc" content="Melbourne's end-of-lease cleaning specialists. Fixed prices, 7-day free re-clean guarantee, REIV-aligned checklist. Get your bond back.">
+  <style>
+    :root {
+      --green: #1c3d2e;
+      --green-light: #2a5941;
+      --gold: #c9a840;
+      --gold-light: #e0bf5a;
+      --bg: #f9f7f4;
+      --bg-dark: #f0ede8;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --white: #ffffff;
+      --border: #e0ddd8;
+      --radius: 10px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    h1 { font-size: clamp(1.8rem, 5vw, 3rem); line-height: 1.2; }
+    h2 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.3; }
+    h3 { font-size: 1.2rem; line-height: 1.4; }
+    p { color: var(--text-muted); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 64px 0; }
+
+    .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-primary { background: var(--gold); color: var(--green); }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,168,64,0.35); }
+    .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--white); }
+    .btn-outline:hover { background: var(--white); color: var(--green); }
+
+    /* NAV */
+    nav { background: var(--green); padding: 16px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { color: var(--white); font-size: 1.5rem; font-weight: 800; text-decoration: none; letter-spacing: -0.5px; }
+    .logo span { color: var(--gold); }
+    .nav-cta { font-size: 0.9rem; padding: 10px 20px; }
+
+    /* HERO */
+    #hero { background: linear-gradient(135deg, var(--green) 0%, #0f2419 100%); color: var(--white); padding: 80px 0 64px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    #hero h1 { color: var(--white); margin-bottom: 16px; }
+    #hero h1 em { color: var(--gold); font-style: normal; }
+    #hero > .container > .hero-grid > div > p { color: rgba(255,255,255,0.82); font-size: 1.1rem; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .hero-stat { text-align: center; background: rgba(255,255,255,0.08); border-radius: var(--radius); padding: 16px 8px; }
+    .hero-stat .num { font-size: 1.8rem; font-weight: 800; color: var(--gold); display: block; }
+    .hero-stat .label { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+    .hero-img-placeholder { background: rgba(255,255,255,0.06); border-radius: var(--radius); height: 320px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.15); }
+    .hero-img-placeholder p { color: rgba(255,255,255,0.4); font-size: 0.85rem; text-align: center; }
+
+    /* GUARANTEE BADGE */
+    #guarantee { background: var(--gold); padding: 32px 0; }
+    .guarantee-inner { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .guarantee-icon { font-size: 3rem; flex-shrink: 0; }
+    .guarantee-text h2 { color: var(--green); font-size: 1.4rem; margin-bottom: 4px; }
+    .guarantee-text p { color: rgba(28,61,46,0.8); font-size: 0.95rem; }
+
+    /* PRICING */
+    #pricing { background: var(--bg); }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 { color: var(--green); margin-bottom: 8px; }
+    .section-header p { max-width: 600px; margin: 0 auto; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .pricing-card { background: var(--white); border-radius: var(--radius); border: 2px solid var(--border); padding: 28px 20px; text-align: center; transition: all 0.2s; }
+    .pricing-card.featured { border-color: var(--gold); box-shadow: 0 4px 24px rgba(201,168,64,0.2); }
+    .pricing-card .badge { background: var(--gold); color: var(--green); font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; margin-bottom: 12px; }
+    .pricing-card h3 { color: var(--green); font-size: 1.1rem; margin-bottom: 16px; }
+    .price-main { font-size: 2.2rem; font-weight: 800; color: var(--green); }
+    .price-label { font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px; }
+    .price-carpet { font-size: 1.1rem; color: var(--text-muted); padding: 8px 0; border-top: 1px solid var(--border); margin-top: 8px; }
+    .price-carpet strong { color: var(--green); }
+    .pricing-includes { list-style: none; margin-top: 16px; text-align: left; }
+    .pricing-includes li { font-size: 0.82rem; color: var(--text-muted); padding: 3px 0; display: flex; gap: 6px; }
+    .pricing-includes li::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .pricing-cta { margin-top: 20px; display: block; width: 100%; text-align: center; }
+
+    /* CHECKLIST */
+    #checklist { background: var(--bg-dark); }
+    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .checklist-room { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+    .checklist-room summary { padding: 16px 20px; font-weight: 600; color: var(--green); cursor: pointer; display: flex; align-items: center; gap: 10px; list-style: none; user-select: none; }
+    .checklist-room summary::-webkit-details-marker { display: none; }
+    .checklist-room summary .room-icon { font-size: 1.3rem; }
+    .checklist-room summary::after { content: "+"; margin-left: auto; font-size: 1.2rem; color: var(--gold); }
+    .checklist-room[open] summary::after { content: "−"; }
+    .checklist-items { padding: 0 20px 16px; }
+    .checklist-items li { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; font-size: 0.88rem; color: var(--text-muted); border-bottom: 1px solid var(--bg-dark); list-style: none; }
+    .checklist-items li:last-child { border-bottom: none; }
+    .check-tick { color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+    /* GALLERY */
+    #gallery { background: var(--bg); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .gallery-pair { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .gallery-before, .gallery-after { height: 180px; display: flex; align-items: center; justify-content: center; position: relative; }
+    .gallery-before { background: #d4c8bc; }
+    .gallery-after { background: #c8dcd0; }
+    .gallery-label { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; }
+    .gallery-after .gallery-label { background: var(--green); }
+    .gallery-placeholder-text { color: rgba(0,0,0,0.3); font-size: 0.78rem; }
+    .gallery-note { text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--green); color: var(--white); }
+    #testimonials .section-header h2 { color: var(--white); }
+    #testimonials .section-header p { color: rgba(255,255,255,0.7); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testi-card { background: rgba(255,255,255,0.07); border-radius: var(--radius); padding: 24px; border: 1px solid rgba(255,255,255,0.1); }
+    .stars { color: var(--gold); font-size: 1rem; margin-bottom: 12px; letter-spacing: 2px; }
+    .testi-card blockquote { font-size: 0.95rem; color: rgba(255,255,255,0.9); line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+    .testi-card blockquote strong { color: var(--gold); font-style: normal; }
+    .testi-author { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+    .testi-author span { display: block; font-weight: 600; color: rgba(255,255,255,0.8); font-style: normal; font-size: 0.88rem; }
+
+    /* PM STRIP */
+    #pm-strip { background: var(--bg-dark); padding: 40px 0; }
+    .pm-strip-label { text-align: center; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+    .pm-logos { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .pm-logo-placeholder { background: var(--bg); border: 2px dashed var(--border); border-radius: 8px; width: 120px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--text-muted); text-align: center; padding: 4px; }
+
+    /* SUBURB SECTION */
+    #suburb-landing { background: var(--green); color: var(--white); padding: 48px 0; display: none; }
+    #suburb-landing h2 { color: var(--white); margin-bottom: 12px; }
+    #suburb-landing > .container > p { color: rgba(255,255,255,0.8); max-width: 640px; }
+    .suburb-social-proof { margin-top: 20px; background: rgba(255,255,255,0.08); border-radius: var(--radius); padding: 16px 20px; display: inline-block; font-size: 0.9rem; color: rgba(255,255,255,0.85); }
+
+    /* QUOTE WIZARD */
+    #quote { background: var(--bg); }
+    .wizard-wrap { max-width: 680px; margin: 0 auto; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
+    .wizard-header { background: var(--green); padding: 28px 32px; }
+    .wizard-header h2 { color: var(--white); font-size: 1.4rem; margin-bottom: 4px; }
+    .wizard-header p { color: rgba(255,255,255,0.75); font-size: 0.88rem; }
+    .wizard-steps-indicator { display: flex; padding: 0 32px 20px; background: var(--green); gap: 8px; }
+    .step-dot { flex: 1; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; transition: background 0.3s; }
+    .step-dot.active { background: var(--gold); }
+    .wizard-body { padding: 32px; }
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--green); margin-bottom: 6px; }
+    .form-group select,
+    .form-group input[type="date"],
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"] {
+      width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 6px;
+      font-size: 0.95rem; font-family: inherit; color: var(--text); background: var(--bg);
+      transition: border-color 0.2s;
+    }
+    .form-group select:focus,
+    .form-group input:focus { outline: none; border-color: var(--green); }
+    .addon-grid { display: grid; gap: 10px; }
+    .addon-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .addon-item:has(input:checked) { border-color: var(--gold); background: #fffbef; }
+    .addon-item input { width: 18px; height: 18px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; }
+    .addon-details { flex: 1; }
+    .addon-details strong { font-size: 0.9rem; color: var(--text); display: block; }
+    .addon-details span { font-size: 0.78rem; color: var(--text-muted); }
+    .addon-price { font-size: 0.9rem; font-weight: 700; color: var(--green); }
+    .price-summary { background: var(--green); color: var(--white); border-radius: 8px; padding: 16px 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .price-summary .total-label { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+    .price-summary .total-amt { font-size: 1.8rem; font-weight: 800; color: var(--gold); }
+    .afterpay-info { font-size: 0.75rem; color: rgba(255,255,255,0.6); display: block; }
+    .wizard-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+    .btn-back { background: transparent; border: 2px solid var(--border); color: var(--text-muted); padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-family: inherit; }
+    .btn-back:hover { border-color: var(--text-muted); }
+    .btn-next { background: var(--gold); color: var(--green); border: none; padding: 12px 28px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.95rem; font-family: inherit; transition: all 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .afterpay-badge { text-align: center; margin-top: 12px; font-size: 0.78rem; color: var(--text-muted); }
+    .afterpay-badge strong { color: var(--text); }
+    .success-msg { text-align: center; padding: 32px; }
+    .success-msg .success-icon { font-size: 3rem; display: block; margin-bottom: 16px; }
+    .success-msg h3 { color: var(--green); margin-bottom: 8px; }
+
+    /* FOOTER */
+    footer { background: #0f2419; color: rgba(255,255,255,0.65); padding: 48px 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo { display: block; margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; max-width: 280px; }
+    .footer-col h4 { color: var(--white); font-size: 0.9rem; margin-bottom: 12px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { font-size: 0.82rem; padding: 3px 0; }
+    .footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; font-size: 0.78rem; flex-wrap: wrap; gap: 8px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-img-placeholder { display: none; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .checklist-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a class="logo" href="#">Main<span>10</span></a>
+      <a class="btn btn-primary nav-cta" href="#quote">Get a Free Quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- SUBURB LANDING (hidden unless ?suburb= param present) -->
+<section id="suburb-landing">
+  <div class="container">
+    <h2 id="suburb-headline">End-of-Lease Cleaning in Your Suburb</h2>
+    <p id="suburb-blurb">Trusted by tenants across Melbourne for bond-back cleans.</p>
+    <div class="suburb-social-proof" id="suburb-proof"></div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <h1><em>Bond-Back Guarantee</em> — Melbourne's End-of-Lease Specialists</h1>
+        <p>Moving out is stressful enough. We take cleaning off your plate so you can focus on what matters — and we guarantee your agent will be satisfied, or we come back for free.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#quote">Get My Fixed Price</a>
+          <a class="btn btn-outline" href="#pricing">See Pricing</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="num">500+</span><span class="label">Bonds Returned in Full</span></div>
+          <div class="hero-stat"><span class="num">7-Day</span><span class="label">Free Re-Clean Guarantee</span></div>
+          <div class="hero-stat"><span class="num">4.9&#9733;</span><span class="label">Google Rating</span></div>
+        </div>
+      </div>
+      <div class="hero-img-placeholder">
+        <p>Hero photo<br>(before/after kitchen)<br>&#8212; swap in real image</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE BADGE -->
+<div id="guarantee">
+  <div class="container">
+    <div class="guarantee-inner">
+      <div class="guarantee-icon">&#128737;</div>
+      <div class="guarantee-text">
+        <h2>7-Day Free Re-Clean Guarantee</h2>
+        <p>If your real estate agent flags <em>any</em> cleaning issue within 7 days of your inspection, we return and fix it &#8212; completely free, no questions asked. Your bond is our responsibility too.</p>
+      </div>
+      <a class="btn btn-primary" href="#quote" style="flex-shrink:0;">Book Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING TABLE -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2>Fixed Prices &#8212; No Surprises</h2>
+      <p>Every end-of-lease clean is priced by bedrooms. What you see is what you pay &#8212; no hourly rates, no hidden extras.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <h3>1 Bedroom</h3>
+        <span class="price-label">From</span>
+        <div class="price-main">$299</div>
+        <div class="price-carpet">With carpet steam: <strong>$349</strong></div>
+        <ul class="pricing-includes">
+          <li>Full kitchen deep clean</li>
+          <li>Oven, rangehood &amp; filters</li>
+          <li>Bathroom &amp; toilet</li>
+          <li>All rooms incl. wardrobes</li>
+          <li>Window tracks &amp; sills</li>
+          <li>Skirting boards</li>
+        </ul>
+        <a class="btn btn-primary pricing-cta" href="#quote">Get Quote</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="badge">Most Popular</div>
+        <h3>2 Bedroom</h3>
+        <span class="price-label">From</span>
+        <div class="price-main">$380</div>
+        <div class="price-carpet">With carpet steam: <strong>$450</strong></div>
+        <ul class="pricing-includes">
+          <li>Full kitchen deep clean</li>
+          <li>Oven, rangehood &amp; filters</li>
+          <li>2 bathrooms included</li>
+          <li>All rooms incl. wardrobes</li>
+          <li>Window tracks &amp; sills</li>
+          <li>Skirting boards</li>
+        </ul>
+        <a class="btn btn-primary pricing-cta" href="#quote">Get Quote</a>
+      </div>
+
+      <div class="pricing-card">
+        <h3>3 Bedroom</h3>
+        <span class="price-label">From</span>
+        <div class="price-main">$460</div>
+        <div class="price-carpet">With carpet steam: <strong>$549</strong></div>
+        <ul class="pricing-includes">
+          <li>Full kitchen deep clean</li>
+          <li>Oven, rangehood &amp; filters</li>
+          <li>Up to 2 bathrooms</li>
+          <li>All rooms incl. wardrobes</li>
+          <li>Window tracks &amp; sills</li>
+          <li>Skirting boards</li>
+        </ul>
+        <a class="btn btn-primary pricing-cta" href="#quote">Get Quote</a>
+      </div>
+
+      <div class="pricing-card">
+        <h3>4 Bedroom+</h3>
+        <span class="price-label">From</span>
+        <div class="price-main">$550</div>
+        <div class="price-carpet">With carpet steam: <strong>$649</strong></div>
+        <ul class="pricing-includes">
+          <li>Full kitchen deep clean</li>
+          <li>Oven, rangehood &amp; filters</li>
+          <li>Up to 3 bathrooms</li>
+          <li>All rooms incl. wardrobes</li>
+          <li>Window tracks &amp; sills</li>
+          <li>Skirting boards</li>
+        </ul>
+        <a class="btn btn-primary pricing-cta" href="#quote">Get Quote</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REIV CHECKLIST -->
+<section id="checklist">
+  <div class="container">
+    <div class="section-header">
+      <h2>What's Included &#8212; REIV-Aligned Checklist</h2>
+      <p>Our end-of-lease clean follows Real Estate Institute of Victoria (REIV) inspection standards. Click each room to expand.</p>
+    </div>
+    <div class="checklist-grid">
+
+      <details class="checklist-room" open>
+        <summary><span class="room-icon">&#127859;</span> Kitchen</summary>
+        <ul class="checklist-items">
+          <li><span class="check-tick">&#10003;</span> Oven interior &#8212; racks, door glass, element trays</li>
+          <li><span class="check-tick">&#10003;</span> Rangehood &#8212; filters degreased, exterior wiped</li>
+          <li><span class="check-tick">&#10003;</span> Stovetop &amp; burners &#8212; all residue removed</li>
+          <li><span class="check-tick">&#10003;</span> Benchtops, splashback &amp; sink</li>
+          <li><span class="check-tick">&#10003;</span> Inside &amp; outside of all cupboards &amp; drawers</li>
+          <li><span class="check-tick">&#10003;</span> Dishwasher interior &amp; filter</li>
+          <li><span class="check-tick">&#10003;</span> Microwave inside &amp; out (if present)</li>
+          <li><span class="check-tick">&#10003;</span> Skirting boards &amp; light switches</li>
+        </ul>
+      </details>
+
+      <details class="checklist-room">
+        <summary><span class="room-icon">&#128703;</span> Bathrooms &amp; Laundry</summary>
+        <ul class="checklist-items">
+          <li><span class="check-tick">&#10003;</span> Shower tiles &amp; screen &#8212; soap scum &amp; limescale removed</li>
+          <li><span class="check-tick">&#10003;</span> Grout scrubbed</li>
+          <li><span class="check-tick">&#10003;</span> Toilet &#8212; bowl, seat, cistern &amp; base</li>
+          <li><span class="check-tick">&#10003;</span> Vanity, basin &amp; mirror</li>
+          <li><span class="check-tick">&#10003;</span> Exhaust fan cover</li>
+          <li><span class="check-tick">&#10003;</span> Towel rails &amp; toilet paper holder</li>
+          <li><span class="check-tick">&#10003;</span> Laundry tub &amp; tray</li>
+          <li><span class="check-tick">&#10003;</span> Washing machine exterior (if present)</li>
+        </ul>
+      </details>
+
+      <details class="checklist-room">
+        <summary><span class="room-icon">&#128716;</span> Bedrooms</summary>
+        <ul class="checklist-items">
+          <li><span class="check-tick">&#10003;</span> Inside &amp; outside of all wardrobes</li>
+          <li><span class="check-tick">&#10003;</span> Wardrobe tracks &amp; sliding door rails</li>
+          <li><span class="check-tick">&#10003;</span> Skirting boards wiped</li>
+          <li><span class="check-tick">&#10003;</span> Ceiling fans dusted</li>
+          <li><span class="check-tick">&#10003;</span> Light switches &amp; power points</li>
+          <li><span class="check-tick">&#10003;</span> Vacuuming (carpet steam is an add-on)</li>
+        </ul>
+      </details>
+
+      <details class="checklist-room">
+        <summary><span class="room-icon">&#128705;</span> Living &amp; Dining Areas</summary>
+        <ul class="checklist-items">
+          <li><span class="check-tick">&#10003;</span> Dusting all surfaces &amp; shelves</li>
+          <li><span class="check-tick">&#10003;</span> Skirting boards &amp; architraves</li>
+          <li><span class="check-tick">&#10003;</span> Light fittings &amp; ceiling fans</li>
+          <li><span class="check-tick">&#10003;</span> Power points &amp; light switches</li>
+          <li><span class="check-tick">&#10003;</span> Vacuuming or mopping floors</li>
+          <li><span class="check-tick">&#10003;</span> Air conditioning filter cleaned</li>
+        </ul>
+      </details>
+
+      <details class="checklist-room">
+        <summary><span class="room-icon">&#129695;</span> Windows, Tracks &amp; Blinds</summary>
+        <ul class="checklist-items">
+          <li><span class="check-tick">&#10003;</span> Window glass (interior) &#8212; streak-free</li>
+          <li><span class="check-tick">&#10003;</span> Window tracks &amp; sills &#8212; dirt &amp; mould removed</li>
+          <li><span class="check-tick">&#10003;</span> Flyscreens wiped down</li>
+          <li><span class="check-tick">&#10003;</span> Venetian blind slats dusted</li>
+          <li><span class="check-tick">&#10003;</span> Roller blind fabric spot-cleaned</li>
+          <li><span class="check-tick">&#10003;</span> Sliding door tracks</li>
+        </ul>
+      </details>
+
+      <details class="checklist-room">
+        <summary><span class="room-icon">&#129529;</span> Carpets &amp; Floors</summary>
+        <ul class="checklist-items">
+          <li><span class="check-tick">&#10003;</span> Vacuuming all carpeted areas (standard)</li>
+          <li><span class="check-tick">&#10003;</span> Carpet steam clean &#8212; hot water extraction (add-on)</li>
+          <li><span class="check-tick">&#10003;</span> Hard floors &#8212; swept &amp; mopped</li>
+          <li><span class="check-tick">&#10003;</span> Tile grout in kitchen &amp; entry areas</li>
+          <li><span class="check-tick">&#10003;</span> Spot treatment for stains (carpet steam bookings)</li>
+          <li><span class="check-tick">&#10003;</span> Drying time advice provided</li>
+        </ul>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE/AFTER GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <h2>See the Difference</h2>
+      <p>Real before-and-after results from Melbourne rental properties.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-pair">
+        <div class="gallery-before">
+          <span class="gallery-label">BEFORE</span>
+          <span class="gallery-placeholder-text">Kitchen oven photo</span>
+        </div>
+        <div class="gallery-after">
+          <span class="gallery-label">AFTER</span>
+          <span class="gallery-placeholder-text">Oven &#8212; spotless</span>
+        </div>
+      </div>
+      <div class="gallery-pair">
+        <div class="gallery-before">
+          <span class="gallery-label">BEFORE</span>
+          <span class="gallery-placeholder-text">Bathroom tiles photo</span>
+        </div>
+        <div class="gallery-after">
+          <span class="gallery-label">AFTER</span>
+          <span class="gallery-placeholder-text">Tiles &amp; grout &#8212; restored</span>
+        </div>
+      </div>
+      <div class="gallery-pair">
+        <div class="gallery-before">
+          <span class="gallery-label">BEFORE</span>
+          <span class="gallery-placeholder-text">Carpet stain photo</span>
+        </div>
+        <div class="gallery-after">
+          <span class="gallery-label">AFTER</span>
+          <span class="gallery-placeholder-text">Carpet steam cleaned</span>
+        </div>
+      </div>
+    </div>
+    <p class="gallery-note">Replace placeholder divs with &lt;img&gt; tags pointing to your real job photos.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2>They Got Their Bond Back</h2>
+      <p>Real outcomes from real Melbourne tenants.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"We were worried after 3 years in the property. Main10 turned up on time, and the agent literally said it was 'the best condition they'd seen a property returned in.' <strong>Got our full $2,400 bond back.</strong>"</blockquote>
+        <div class="testi-author">
+          <span>Sophie R.</span>
+          Tenant &#8212; Richmond, VIC
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Only had 5 days before vacate. Main10 fit us in the next morning, did the oven, carpets, everything. The property manager emailed to say the place was immaculate. <strong>$1,800 bond returned in full.</strong>"</blockquote>
+        <div class="testi-author">
+          <span>James &amp; Priya K.</span>
+          Tenants &#8212; Brunswick, VIC
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"The guarantee gave me peace of mind. The agent flagged one window track &#8212; Main10 came back that afternoon. No fuss, no charge. <strong>Full bond. Stress-free move.</strong>"</blockquote>
+        <div class="testi-author">
+          <span>Amara N.</span>
+          Tenant &#8212; Footscray, VIC
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTY MANAGER LOGOS STRIP -->
+<div id="pm-strip">
+  <div class="container">
+    <p class="pm-strip-label">Trusted by property managers across Melbourne</p>
+    <div class="pm-logos">
+      <div class="pm-logo-placeholder">Agency<br>Logo</div>
+      <div class="pm-logo-placeholder">Agency<br>Logo</div>
+      <div class="pm-logo-placeholder">Agency<br>Logo</div>
+      <div class="pm-logo-placeholder">Agency<br>Logo</div>
+      <div class="pm-logo-placeholder">Agency<br>Logo</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE WIZARD -->
+<section id="quote">
+  <div class="container">
+    <div class="section-header">
+      <h2>Get Your Fixed Price Quote</h2>
+      <p>Takes 60 seconds. No obligation &#8212; just a clear price for your end-of-lease clean.</p>
+    </div>
+
+    <div class="wizard-wrap">
+      <div class="wizard-header">
+        <h2>Your End-of-Lease Quote</h2>
+        <p>Step-by-step &#8212; your price in under a minute.</p>
+      </div>
+      <div class="wizard-steps-indicator">
+        <div class="step-dot active" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+      </div>
+
+      <div class="wizard-body">
+
+        <!-- Step 1 -->
+        <div class="wizard-step active" id="step-1">
+          <h3 style="color:var(--green);margin-bottom:20px;">Step 1 &#8212; Your Property</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bedrooms">Bedrooms</label>
+              <select id="bedrooms" onchange="updatePrice()">
+                <option value="1">1 Bedroom</option>
+                <option value="2" selected>2 Bedrooms</option>
+                <option value="3">3 Bedrooms</option>
+                <option value="4">4+ Bedrooms</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bathrooms">Bathrooms</label>
+              <select id="bathrooms">
+                <option value="1">1 Bathroom</option>
+                <option value="2" selected>2 Bathrooms</option>
+                <option value="3">3 Bathrooms</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="suburb-select">Suburb</label>
+            <select id="suburb-select">
+              <option value="">&#8212; Select suburb &#8212;</option>
+              <option>Richmond</option>
+              <option>St Kilda</option>
+              <option>Fitzroy</option>
+              <option>Collingwood</option>
+              <option>Brunswick</option>
+              <option>South Yarra</option>
+              <option>Northcote</option>
+              <option>Prahran</option>
+              <option>Carlton</option>
+              <option>Footscray</option>
+              <option>Other Melbourne suburb</option>
+            </select>
+          </div>
+          <div class="price-summary">
+            <div>
+              <span class="total-label">Estimated Total</span>
+              <div class="total-amt" id="price-display">$380</div>
+              <span class="afterpay-info">or 4 &times; <span id="afterpay-amt">$95.00</span> fortnightly with Afterpay</span>
+            </div>
+          </div>
+          <div class="wizard-nav">
+            <span></span>
+            <button class="btn-next" onclick="goStep(2)">Next: Add-Ons &#8594;</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="wizard-step" id="step-2">
+          <h3 style="color:var(--green);margin-bottom:20px;">Step 2 &#8212; Add-Ons</h3>
+          <div class="addon-grid">
+            <label class="addon-item">
+              <input type="checkbox" id="addon-carpet" checked onchange="updatePrice()">
+              <div class="addon-details">
+                <strong>Carpet Steam Clean</strong>
+                <span>Hot water extraction &#8212; recommended by most agents</span>
+              </div>
+              <span class="addon-price" id="carpet-price">+$70</span>
+            </label>
+            <label class="addon-item">
+              <input type="checkbox" id="addon-oven" onchange="updatePrice()">
+              <div class="addon-details">
+                <strong>Oven Deep Clean</strong>
+                <span>Interior, racks, door glass &#8212; most common agent fail point</span>
+              </div>
+              <span class="addon-price">+$45</span>
+            </label>
+            <label class="addon-item">
+              <input type="checkbox" id="addon-windows" onchange="updatePrice()">
+              <div class="addon-details">
+                <strong>Full Window &amp; Track Clean</strong>
+                <span>Interior glass streak-free + tracks thoroughly scrubbed</span>
+              </div>
+              <span class="addon-price">+$35</span>
+            </label>
+            <label class="addon-item">
+              <input type="checkbox" id="addon-balcony" onchange="updatePrice()">
+              <div class="addon-details">
+                <strong>Balcony / Outdoor Area</strong>
+                <span>Sweep, scrub, remove cobwebs</span>
+              </div>
+              <span class="addon-price">+$40</span>
+            </label>
+          </div>
+          <div class="price-summary" style="margin-top:24px;">
+            <div>
+              <span class="total-label">Updated Total</span>
+              <div class="total-amt" id="price-display-2">$450</div>
+              <span class="afterpay-info">or 4 &times; <span id="afterpay-amt-2">$112.50</span> fortnightly with Afterpay</span>
+            </div>
+          </div>
+          <div class="wizard-nav">
+            <button class="btn-back" onclick="goStep(1)">&#8592; Back</button>
+            <button class="btn-next" onclick="goStep(3)">Next: Your Details &#8594;</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="wizard-step" id="step-3">
+          <h3 style="color:var(--green);margin-bottom:20px;">Step 3 &#8212; Book &amp; Confirm</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Sarah">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Chen">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="sarah@email.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Mobile Number</label>
+            <input type="tel" id="phone" placeholder="04xx xxx xxx">
+          </div>
+          <div class="form-group">
+            <label for="vacate-date">Vacate Date</label>
+            <input type="date" id="vacate-date">
+          </div>
+          <div class="form-group">
+            <label for="agent-email">Agent's Email (optional &#8212; for photo report)</label>
+            <input type="email" id="agent-email" placeholder="agent@realestateagency.com.au">
+          </div>
+          <div class="price-summary">
+            <div>
+              <span class="total-label">Your Total</span>
+              <div class="total-amt" id="price-display-3">$450</div>
+              <span class="afterpay-info">or 4 &times; <span id="afterpay-amt-3">$112.50</span> fortnightly with Afterpay</span>
+            </div>
+          </div>
+          <button class="btn-next" style="width:100%;padding:14px;" onclick="submitQuote()">
+            Confirm &amp; Book &#8212; <span id="final-price">$450</span>
+          </button>
+          <div class="afterpay-badge" style="margin-top:12px;">
+            <strong>Pay with Afterpay</strong> &#8212; split into 4 interest-free fortnightly payments.
+          </div>
+          <div class="wizard-nav" style="margin-top:12px;">
+            <button class="btn-back" onclick="goStep(2)">&#8592; Back</button>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="wizard-step" id="step-success">
+          <div class="success-msg">
+            <span class="success-icon">&#127881;</span>
+            <h3>You're booked &#8212; we'll be in touch shortly!</h3>
+            <p>Check your email for confirmation. We'll call you within 2 hours to lock in your time slot and send the REIV checklist so you know exactly what we'll cover.</p>
+            <br>
+            <p style="font-size:0.82rem;color:var(--text-muted);">Your <strong>7-day free re-clean guarantee</strong> applies from the date of your inspection. Keep our number handy if your agent has any questions.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#">Main<span style="color:var(--gold)">10</span></a>
+        <p>Melbourne's end-of-lease cleaning specialists. Bond-back guarantee on every job. REIV-aligned checklists, fixed prices, same-week availability.</p>
+        <p style="margin-top:12px;">ABN: XX XXX XXX XXX</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#quote">End-of-Lease Clean</a></li>
+          <li><a href="#quote">Carpet Steam Clean</a></li>
+          <li><a href="#quote">Regular House Clean</a></li>
+          <li><a href="#quote">Move-In Clean</a></li>
+          <li><a href="#quote">Office Clean</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Service Areas</h4>
+        <ul>
+          <li><a href="?suburb=Richmond">Richmond</a></li>
+          <li><a href="?suburb=St+Kilda">St Kilda</a></li>
+          <li><a href="?suburb=Fitzroy">Fitzroy</a></li>
+          <li><a href="?suburb=Brunswick">Brunswick</a></li>
+          <li><a href="?suburb=South+Yarra">South Yarra</a></li>
+          <li><a href="?suburb=Footscray">Footscray</a></li>
+          <li><a href="?suburb=Northcote">Northcote</a></li>
+          <li><a href="?suburb=Collingwood">Collingwood</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&#169; 2025 Main10 Cleaning. All rights reserved.</span>
+      <span>&#128222; <a href="tel:0400000000" style="color:var(--gold);text-decoration:none;">0400 000 000</a> &nbsp;|&nbsp; &#9993; <a href="mailto:hello@main10.com.au" style="color:var(--gold);text-decoration:none;">hello@main10.com.au</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Pricing data
+  const BASE_PRICE = { 1: 299, 2: 380, 3: 460, 4: 550 };
+  const CARPET_PRICE = { 1: 50, 2: 70, 3: 89, 4: 99 };
+
+  function getTotal() {
+    const beds = parseInt(document.getElementById('bedrooms').value) || 2;
+    const key = beds > 4 ? 4 : beds;
+    let total = BASE_PRICE[key];
+    if (document.getElementById('addon-carpet') && document.getElementById('addon-carpet').checked) total += CARPET_PRICE[key];
+    if (document.getElementById('addon-oven') && document.getElementById('addon-oven').checked) total += 45;
+    if (document.getElementById('addon-windows') && document.getElementById('addon-windows').checked) total += 35;
+    if (document.getElementById('addon-balcony') && document.getElementById('addon-balcony').checked) total += 40;
+    return total;
+  }
+
+  function updatePrice() {
+    const beds = parseInt(document.getElementById('bedrooms').value) || 2;
+    const key = beds > 4 ? 4 : beds;
+    const carpetEl = document.getElementById('carpet-price');
+    if (carpetEl) carpetEl.textContent = '+$' + CARPET_PRICE[key];
+
+    const total = getTotal();
+    const ap = (total / 4).toFixed(2);
+
+    const ids = [['price-display', 'afterpay-amt'], ['price-display-2', 'afterpay-amt-2'], ['price-display-3', 'afterpay-amt-3']];
+    ids.forEach(function(pair) {
+      const pd = document.getElementById(pair[0]);
+      const aa = document.getElementById(pair[1]);
+      if (pd) pd.textContent = '$' + total;
+      if (aa) aa.textContent = '$' + ap;
+    });
+    const fp = document.getElementById('final-price');
+    if (fp) fp.textContent = '$' + total;
+  }
+
+  function goStep(n) {
+    document.querySelectorAll('.wizard-step').forEach(function(s) { s.classList.remove('active'); });
+    var step = document.getElementById('step-' + n);
+    if (step) step.classList.add('active');
+    document.querySelectorAll('.step-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i < n);
+    });
+    updatePrice();
+  }
+
+  function submitQuote() {
+    var fname = (document.getElementById('fname').value || '').trim();
+    var email = (document.getElementById('email').value || '').trim();
+    var phone = (document.getElementById('phone').value || '').trim();
+    var vacate = (document.getElementById('vacate-date').value || '').trim();
+    if (!fname || !email || !phone || !vacate) {
+      alert('Please fill in your name, email, mobile, and vacate date to continue.');
+      return;
+    }
+    // POST to your n8n webhook in production:
+    // fetch('/webhook/eol-lead', { method: 'POST', headers: {'Content-Type':'application/json'},
+    //   body: JSON.stringify({ name: fname, email, phone, vacate_date: vacate,
+    //     suburb: document.getElementById('suburb-select').value,
+    //     agent_email: document.getElementById('agent-email').value,
+    //     total: getTotal(), carpet: document.getElementById('addon-carpet').checked }) });
+    document.querySelectorAll('.wizard-step').forEach(function(s) { s.classList.remove('active'); });
+    var success = document.getElementById('step-success');
+    if (success) success.classList.add('active');
+    document.querySelectorAll('.step-dot').forEach(function(d) { d.classList.add('active'); });
+  }
+
+  // Suburb landing page logic
+  var SUBURB_DATA = {
+    'richmond':    { display: 'Richmond',    proof: 'Over 40 Richmond tenants have secured their bond back with Main10 in the past 12 months.' },
+    'st kilda':    { display: 'St Kilda',    proof: 'St Kilda\'s tight rental market means agents are thorough. We make sure you pass &#8212; every time.' },
+    'fitzroy':     { display: 'Fitzroy',     proof: 'Heritage properties in Fitzroy need careful cleaning. Our team knows what agents look for.' },
+    'collingwood': { display: 'Collingwood', proof: 'From warehouse conversions to Victorian terraces &#8212; we\'ve cleaned them all in Collingwood.' },
+    'brunswick':   { display: 'Brunswick',   proof: 'Brunswick tenants love our Saturday availability. Book early &#8212; we fill fast.' },
+    'south yarra': { display: 'South Yarra', proof: 'Premium properties deserve premium cleaning. South Yarra agents know our work.' },
+    'northcote':   { display: 'Northcote',   proof: 'Northcote\'s period homes have specific needs &#8212; skirtings, cornices, original fittings. We\'ve got you covered.' },
+    'prahran':     { display: 'Prahran',     proof: 'Prahran apartments cleaned to a standard that gets bonds returned every time.' },
+    'carlton':     { display: 'Carlton',     proof: 'Student rentals, shared houses, single apartments &#8212; all cleaned to REIV standard in Carlton.' },
+    'footscray':   { display: 'Footscray',   proof: 'Footscray\'s rental market is growing fast. We\'re your local bond-back specialists.' }
+  };
+
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var raw = (params.get('suburb') || '').toLowerCase().trim();
+    if (!raw) return;
+    var data = SUBURB_DATA[raw];
+    var display = data ? data.display : raw.replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+    var proof = data ? data.proof : 'We service ' + display + ' and surrounding suburbs.';
+
+    document.getElementById('suburb-headline').textContent =
+      'End-of-Lease Cleaning in ' + display + ' — Bond-Back Guarantee';
+    document.getElementById('suburb-blurb').textContent =
+      'Moving out of your ' + display + ' rental? Main10 handles the clean so you can focus on your move — and we guarantee your bond comes back.';
+    document.getElementById('suburb-proof').innerHTML = '&#128205; ' + proof;
+    document.getElementById('suburb-landing').style.display = 'block';
+
+    document.title = 'End-of-Lease Cleaning ' + display + ' | Main10 Bond-Back Guarantee';
+    var metaDesc = document.getElementById('page-desc');
+    if (metaDesc) {
+      metaDesc.setAttribute('content',
+        'Professional end-of-lease cleaning in ' + display + ', Melbourne. Fixed prices, 7-day free re-clean guarantee. Book Main10 today.');
+    }
+  })();
+
+  updatePrice();
+</script>
+</body>
+</html>
