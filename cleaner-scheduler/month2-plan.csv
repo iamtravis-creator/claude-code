@@ -1,0 +1,31 @@
+Day,Week,Task,Owner (Main),Co-Owner,Purpose
+31,5,Launch Premium Clean tier ($80-90/hr) — update pricing page, services, GBP, suburb pages,Ops Lead 1,,Increase average job value and attract higher-end clients.
+32,5,Add Premium tier block to all existing suburb pages; regenerate pages with CLI as needed,Ops Lead 1,,Keep suburb pages current with the full service offering.
+33,5,Identify 10-15 real estate agencies in top 5 suburbs; send personalised partner pitch emails,Ops Lead 1,,Build referral channel with high-volume lettings teams.
+34,5,Identify 5-10 independent property management companies; send partner pitch emails,Ops Lead 1,,Tap into consistent tenancy-turnover cleaning demand.
+35,5,Join Melbourne AirBnB host groups; send partner pitch to top-rated short-stay hosts,Ops Lead 2,,Secure recurring changeover cleans from short-stay market.
+36,5,Set up CRM email automation (Mailchimp or HubSpot); automate post-clean sequence + loyalty triggers,Ops Lead 1,,Remove manual email workload; ensure no follow-up is missed.
+37,5,Send partner follow-up lines to non-responders; update partnership tracking spreadsheet,Ops Lead 1,Ops Lead 2,Maximise response rate from first outreach wave.
+38,6,Design and document loyalty program tiers (5/10/20 cleans); define rewards at each level,Ops Lead 2,,Create a structured reason for clients to stay and refer.
+39,6,Announce loyalty program to all existing clients; send milestone emails for 5+ and 10+ clean clients,Ops Lead 2,,Convert past clients into loyal advocates.
+40,6,Generate and publish 10 new suburb pages (Clifton Hill, Thornbury, South Yarra, Windsor, etc.),Ops Lead 1,,Expand organic search footprint to 25+ suburbs.
+41,6,Add Premium tier service block to all 10 new suburb pages; verify all booking CTAs,Ops Lead 1,,Ensure Premium is visible and bookable in every suburb.
+42,6,Review partner outreach results; arrange calls with interested partners; send partner welcome kits,Ops Lead 1,Ops Lead 2,Convert interest into active referral arrangements.
+43,6,Generate and launch Spring Clean campaign copy kit (if August-October timing),Ops Lead 2,,Drive seasonal demand spike with coordinated multi-channel campaign.
+44,6,Install Meta Pixel; create retargeting audience; launch retargeting campaign at $10/day,Ops Lead 2,,Re-engage warm website visitors who didn't convert.
+45,7,A/B test new headlines on top 5 suburb pages using CLI-regenerated copy,Ops Lead 1,,Improve suburb page CTR with data-driven headline testing.
+46,7,Publish 'Now serving [suburb]' GBP posts for all 10 new suburbs,Ops Lead 2,,Signal expanded coverage and keep GBP active.
+47,7,Send mid-month check-in email to all active clients with loyalty tier status update,Ops Lead 2,,Reinforce loyalty program awareness and drive referrals.
+48,7,Audit booking flow using analytics; identify and fix biggest drop-off point,Ops Lead 1,,Remove friction between interest and booking.
+49,7,Send second wave of partner outreach to 10 more contacts,Ops Lead 1,,Expand partner pipeline across new suburbs and partner types.
+50,7,Scale winning ad suburbs (double budget for CPL < $10); pause suburbs with CPL > $20,Ops Lead 2,,Optimise ad spend based on 4 weeks of performance data.
+51,7,Review and respond to all new GBP reviews; screenshot best reviews for Variant C ads,Ops Lead 2,,Maintain GBP ranking signals and source social proof for ads.
+52,8,Maintain routine: SOP before each job; email sequence after; GBP posts; partner follow-ups,Ops Lead 1,Ops Lead 2,Sustain operational quality and marketing momentum.
+53,8,Loyalty emails for any new milestone clients; update loyalty tracking spreadsheet,Ops Lead 2,,Keep loyalty program active and clients feeling valued.
+54,8,Weekly batch of GBP posts for active suburbs (1 per suburb per week),Ops Lead 2,,Maintain GBP activity signals across expanded suburb list.
+55,8,Partner check-in calls for all partners who referred a booking; reinforce the arrangement,Ops Lead 1,,Deepen partner relationships to increase referral frequency.
+56,8,Generate and launch End-of-Lease Season campaign if January-February timing,Ops Lead 2,,Capitalise on Melbourne's peak lease-turnover window.
+57,8,Review Premium tier booking volume; consider a Premium + Standard monthly package bundle,Ops Lead 1,,Test bundled pricing to increase average monthly client value.
+58,8,Assess partner program ROI by type; double down on highest-performing partner channel,Ops Lead 1,Ops Lead 2,Allocate outreach effort to the most efficient partner type.
+59,8,Full KPI review: clients, reviews, partner bookings, email metrics, ad CPL,Ops Lead 1,Ops Lead 2,Measure Month 2 performance against all targets.
+60,8,Month 2 review meeting + Month 3 planning: capacity, Google Ads, client portal, gifting,Ops Lead 1,Ops Lead 2,Turn Month 2 into a repeatable playbook and set Month 3 priorities.

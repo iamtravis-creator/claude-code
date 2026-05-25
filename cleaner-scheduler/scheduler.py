@@ -78,6 +78,89 @@ Rules:
 - Use placeholders exactly as shown: [REVIEW_LINK], [REFERRAL_CODE]
 - Sign off as "The Main10 Clean team" """
 
+SYSTEM_PROMPT_PARTNER = """You are a B2B sales copywriter for Main10 Clean, a Melbourne residential cleaning business that wants to build referral partnerships with real estate agents, property managers, and AirBnB / short-stay hosts.
+
+When given a partner type and suburb, write a concise, warm outreach email that feels personal — not a mass-blast template.
+
+Your output must include these clearly labelled sections:
+
+## Subject Line
+One subject line, under 60 characters. Avoid spam words ("free", "guaranteed", "limited time"). Make it specific to their role and the suburb.
+
+## Email Body
+Under 200 words. Structure:
+1. Opening: brief personal hook referencing their role and suburb (1 sentence)
+2. What Main10 Clean offers them: a reliable cleaning partner they can recommend to clients — vetted cleaners, bond-back end-of-lease specialisation, consistent quality, easy online booking
+3. The referral arrangement: Main10 Clean will give their clients priority booking + $20 off first clean, and the partner gets a named referral code to track bookings (no financial incentive to them — this is a value-add for their clients)
+4. Soft CTA: suggest a 15-minute call or a trial clean at one of their properties
+
+## Follow-Up Line
+One short follow-up sentence to send 5 days later if no response. Under 20 words.
+
+Rules:
+- Address the contact by name if provided
+- Reference the partner type and suburb throughout
+- Real estate agent angle: end-of-lease cleans for departing tenants, first-impression cleans for new listings
+- Property manager angle: reliable turnaround cleans between tenancies, consistent quality across a portfolio
+- AirBnB / short-stay angle: fast, reliable changeover cleans, flexible scheduling around guest check-in/check-out
+- Tone: professional, friendly, low-pressure. This is a local business reaching out to another local business."""
+
+SYSTEM_PROMPT_LOYALTY = """You are a CRM copywriter for Main10 Clean, a Melbourne residential cleaning business.
+
+When given a client's name and a loyalty milestone (number of cleans completed), write a warm milestone email that makes the client feel valued and nudges them toward their next booking.
+
+Your output must include these clearly labelled sections:
+
+## Subject Line
+One subject line under 55 characters. Reference the milestone number. Keep it warm, not corporate.
+
+## Email Body
+Under 160 words. Structure:
+1. Opening: celebrate the milestone specifically — "You've had your 10th clean with us!" (1–2 sentences)
+2. Thank them genuinely — reference that loyal clients are the foundation of Main10 Clean (1 sentence)
+3. Reward: offer a loyalty reward — for every 10th clean, the next clean is discounted. Use placeholder [LOYALTY_DISCOUNT] for the discount amount or describe as "10% off your next clean" if milestone is 5, 10, 20 etc.
+4. Soft nudge: one-line CTA to book their next clean, with placeholder [BOOKING_LINK]
+
+## SMS Version (optional)
+A 2-line SMS version under 160 characters for clients who prefer SMS contact. Include [BOOKING_LINK].
+
+Rules:
+- Use the client's first name
+- Adjust tone by milestone — 5th clean is warm, 10th is celebratory, 20th is effusively grateful
+- Never make it feel like a points program — frame it as a personal thank-you
+- Sign off as "The Main10 Clean team" """
+
+SYSTEM_PROMPT_CAMPAIGN = """You are a marketing copywriter for Main10 Clean, a Melbourne residential cleaning business.
+
+When given a campaign type and target suburbs, generate a complete campaign copy kit ready to use across channels.
+
+Your output must include these clearly labelled sections:
+
+## Campaign Overview
+Campaign name, theme (1 sentence), and the core offer (e.g. "20% off spring cleans booked in August").
+
+## Email
+Subject line + body (under 200 words). Hook on the seasonal moment, explain the offer, list 2–3 key benefits, include a strong CTA with placeholder [BOOKING_LINK]. Address the reader as "you", not "customers".
+
+## SMS
+One SMS under 160 characters. Include the offer and [BOOKING_LINK].
+
+## Social Post (Facebook / Instagram)
+Caption under 150 characters + 3–5 relevant hashtags. Keep it punchy. Reference the suburb(s) if 1–3 are provided.
+
+## Google Business Profile Post
+Under 100 words. Include the offer, a trust signal, and a CTA. This is for the "What's New" or "Offer" post type.
+
+## Landing Page Headline
+One H1 headline (under 60 characters) and one subheadline (under 100 characters) for the campaign landing page.
+
+Rules:
+- Anchor everything to the seasonal moment (spring = fresh start, end-of-lease = bond back, summer = holiday prep)
+- Include all provided suburbs by name where it fits naturally; if more than 3, say "inner Melbourne suburbs"
+- Use placeholder [DISCOUNT_CODE] for promo codes
+- Avoid superlatives and spam-trigger words
+- Tone: warm, locally grounded, direct"""
+
 SYSTEM_PROMPT_SOP = """You are a cleaning operations manager writing single-page field SOPs for residential cleaners at Main10 Clean, Melbourne.
 
 When given a job description, generate a job-specific Standard Operating Procedure that fits on a single printed page (400–600 words).
@@ -202,6 +285,58 @@ def cmd_sop(args):
     print(result)
 
 
+def cmd_partner(args):
+    partner_labels = {
+        "real-estate": "real estate agent",
+        "property-manager": "property manager",
+        "airbnb": "AirBnB / short-stay host",
+    }
+    partner_label = partner_labels[args.type]
+    suburb_line = f" in {args.suburb}" if args.suburb else " in Melbourne"
+    contact_line = f"Contact name: {args.contact}\n" if args.contact else ""
+    user_message = (
+        f"Partner type: {partner_label}{suburb_line}\n"
+        f"{contact_line}"
+        "Generate the outreach email and follow-up line."
+    )
+    print(f"Generating partner pitch for {partner_label}{suburb_line}...\n", file=sys.stderr)
+    result = call_claude(SYSTEM_PROMPT_PARTNER, user_message, max_tokens=800)
+    print(result)
+
+
+def cmd_loyalty(args):
+    notes_line = f"Additional context: {args.notes}\n" if args.notes else ""
+    user_message = (
+        f"Client name: {args.client}\n"
+        f"Cleans completed: {args.milestone}\n"
+        f"{notes_line}"
+        "Generate the loyalty milestone email."
+    )
+    print(f"Generating loyalty email for {args.client} (milestone: {args.milestone} cleans)...\n", file=sys.stderr)
+    result = call_claude(SYSTEM_PROMPT_LOYALTY, user_message, max_tokens=600)
+    print(result)
+
+
+def cmd_campaign(args):
+    campaign_labels = {
+        "spring-clean": "Spring Clean (August–October, Melbourne)",
+        "end-of-lease": "End-of-Lease Season (January–February peak, lease turnover)",
+        "summer": "Summer Refresh (December–January)",
+        "winter": "Winter Deep Clean (June–July)",
+        "custom": args.custom or "Custom campaign",
+    }
+    campaign_label = campaign_labels[args.type]
+    suburbs_line = f"Target suburbs: {args.suburbs}\n" if args.suburbs else ""
+    user_message = (
+        f"Campaign type: {campaign_label}\n"
+        f"{suburbs_line}"
+        "Generate the full campaign copy kit."
+    )
+    print(f"Generating campaign copy for: {campaign_label}...\n", file=sys.stderr)
+    result = call_claude(SYSTEM_PROMPT_CAMPAIGN, user_message, max_tokens=1800)
+    print(result)
+
+
 def cmd_batch(args):
     try:
         with open(args.input_file) as f:
@@ -292,6 +427,48 @@ def build_parser():
     p_sop.add_argument("--job", "-j", help="Job description as a quoted string")
     p_sop.add_argument("--file", "-f", help="Path to a file containing the job description")
 
+    p_partner = subparsers.add_parser(
+        "partner",
+        help="Generate a B2B outreach email for a referral partner",
+        description="Generate a partner outreach email for real estate agents, property managers, or AirBnB hosts.",
+    )
+    p_partner.add_argument(
+        "--type", "-t",
+        required=True,
+        choices=["real-estate", "property-manager", "airbnb"],
+        help="Partner type",
+    )
+    p_partner.add_argument("--suburb", "-s", help="Target suburb or area, e.g. Richmond")
+    p_partner.add_argument("--contact", "-c", help="Contact's first name for personalisation")
+
+    p_loyalty = subparsers.add_parser(
+        "loyalty",
+        help="Generate a loyalty milestone email for a returning client",
+        description="Generate a loyalty milestone email celebrating a client's Nth clean.",
+    )
+    p_loyalty.add_argument("--client", "-c", required=True, help="Client first name, e.g. Sarah")
+    p_loyalty.add_argument(
+        "--milestone", "-m",
+        required=True,
+        type=int,
+        help="Number of cleans completed, e.g. 5 or 10",
+    )
+    p_loyalty.add_argument("--notes", "-n", help="Optional extra context about the client or job history")
+
+    p_campaign = subparsers.add_parser(
+        "campaign",
+        help="Generate a seasonal marketing campaign copy kit",
+        description="Generate email, SMS, social, GBP post, and landing page copy for a seasonal campaign.",
+    )
+    p_campaign.add_argument(
+        "--type", "-t",
+        required=True,
+        choices=["spring-clean", "end-of-lease", "summer", "winter", "custom"],
+        help="Campaign type",
+    )
+    p_campaign.add_argument("--suburbs", "-s", help="Comma-separated target suburbs, e.g. 'Richmond,Northcote'")
+    p_campaign.add_argument("--custom", help="Custom campaign description (required when --type is 'custom')")
+
     p_batch = subparsers.add_parser(
         "batch",
         help="Process multiple jobs from a JSON file and generate schedules",
@@ -321,6 +498,9 @@ def main():
         "emails": cmd_emails,
         "sop": cmd_sop,
         "batch": cmd_batch,
+        "partner": cmd_partner,
+        "loyalty": cmd_loyalty,
+        "campaign": cmd_campaign,
     }
     dispatch[args.command](args)
 

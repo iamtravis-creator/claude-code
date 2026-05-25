@@ -17,6 +17,9 @@ python scheduler.py suburb --suburb "Northcote"
 python scheduler.py emails --client "Sarah" --job "Deep clean, 2-bed, Fitzroy"
 python scheduler.py sop --job "End-of-lease, 3-bed, pets on premises, Elwood"
 python scheduler.py batch jobs.json --format json
+python scheduler.py partner --type real-estate --suburb "Richmond" --contact "James"
+python scheduler.py loyalty --client "Emma" --milestone 10
+python scheduler.py campaign --type spring-clean --suburbs "Richmond,Northcote,Fitzroy"
 ```
 
 ---
@@ -192,4 +195,73 @@ The `templates/` directory contains ready-to-use content templates that compleme
 | [`templates/ad-copy.md`](templates/ad-copy.md) | FB/IG ad copy variants |
 | [`templates/faq-content.md`](templates/faq-content.md) | Full FAQ content blocks |
 
-See [`LAUNCH_PLAN.md`](LAUNCH_PLAN.md) for the full 30-day Melbourne go-to-market plan.
+---
+
+### `partner` — Generate a B2B partner outreach email
+
+Produces a personalised outreach email and follow-up line for a referral partner.
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--type` | `-t` | Partner type (required): `real-estate`, `property-manager`, `airbnb` |
+| `--suburb` | `-s` | Target suburb or area, e.g. `Richmond` |
+| `--contact` | `-c` | Contact's first name for personalisation |
+
+**Examples**
+
+```bash
+python scheduler.py partner --type real-estate --suburb "Richmond" --contact "James"
+python scheduler.py partner --type property-manager --suburb "Northcote"
+python scheduler.py partner --type airbnb --suburb "St Kilda" --contact "Lisa"
+
+# Save to file
+python scheduler.py partner --type real-estate --suburb "Elwood" --contact "Mark" > outreach/elwood-realty.md
+```
+
+---
+
+### `loyalty` — Generate a loyalty milestone email
+
+Produces a personalised milestone email celebrating a client's Nth clean, with an optional SMS version.
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--client` | `-c` | Client first name (required), e.g. `Sarah` |
+| `--milestone` | `-m` | Number of cleans completed (required), e.g. `5`, `10`, `20` |
+| `--notes` | `-n` | Optional extra context about the client or job history |
+
+**Examples**
+
+```bash
+python scheduler.py loyalty --client "Sarah" --milestone 5
+python scheduler.py loyalty --client "James" --milestone 10
+python scheduler.py loyalty --client "Emma" --milestone 20 --notes "Always requests eco products"
+```
+
+---
+
+### `campaign` — Generate a seasonal campaign copy kit
+
+Produces email, SMS, social post, GBP post, and landing page copy for a seasonal campaign.
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--type` | `-t` | Campaign type (required): `spring-clean`, `end-of-lease`, `summer`, `winter`, `custom` |
+| `--suburbs` | `-s` | Comma-separated target suburbs, e.g. `'Richmond,Northcote,Fitzroy'` |
+| `--custom` | | Custom campaign description (required when `--type custom`) |
+
+**Examples**
+
+```bash
+python scheduler.py campaign --type spring-clean --suburbs "Richmond,Northcote,Elwood"
+python scheduler.py campaign --type end-of-lease --suburbs "Brunswick,Fitzroy,Collingwood"
+python scheduler.py campaign --type summer
+python scheduler.py campaign --type custom --custom "Back-to-school clean, February, family households in Brunswick"
+
+# Save full kit to file
+python scheduler.py campaign --type spring-clean --suburbs "Richmond,Northcote" > campaigns/spring-2026.md
+```
+
+---
+
+See [`LAUNCH_PLAN.md`](LAUNCH_PLAN.md) for the full 30-day Melbourne go-to-market plan and [`MONTH2_PLAN.md`](MONTH2_PLAN.md) for Month 2 expansion.
