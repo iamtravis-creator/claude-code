@@ -1,0 +1,486 @@
+{
+  "name": "Main10 EOL Lead Automation",
+  "nodes": [
+    {
+      "id": "webhook-eol-lead",
+      "name": "EOL Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "eol-lead",
+        "responseMode": "onReceived",
+        "responseData": "firstEntryJson",
+        "options": {}
+      }
+    },
+    {
+      "id": "set-vacate-days",
+      "name": "Calculate Vacate Days",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [460, 300],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "fields": {
+          "values": [
+            {
+              "name": "vacate_days",
+              "type": "expression",
+              "value": "={{ Math.ceil((new Date($json.vacate_date) - new Date()) / 86400000) }}"
+            },
+            {
+              "name": "urgency_tag",
+              "type": "expression",
+              "value": "={{ $json.vacate_days <= 7 ? 'urgent' : ($json.vacate_days <= 14 ? 'standard' : 'planning') }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "router-urgency",
+      "name": "Route by Urgency",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.urgency_tag }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "urgent",
+              "output": 0
+            },
+            {
+              "value2": "standard",
+              "output": 1
+            },
+            {
+              "value2": "planning",
+              "output": 2
+            }
+          ]
+        },
+        "fallbackOutput": 1
+      }
+    },
+    {
+      "id": "mailchimp-add-contact",
+      "name": "Mailchimp: Add/Update Contact",
+      "type": "n8n-nodes-base.mailchimp",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "parameters": {
+        "operation": "upsert",
+        "listId": "YOUR_MAILCHIMP_LIST_ID",
+        "email": "={{ $json.email }}",
+        "status": "subscribed",
+        "mergeFieldsUi": {
+          "mergeFieldsValues": [
+            { "name": "FNAME", "value": "={{ $json.name.split(' ')[0] }}" },
+            { "name": "LNAME", "value": "={{ $json.name.split(' ').slice(1).join(' ') }}" },
+            { "name": "PHONE", "value": "={{ $json.phone }}" },
+            { "name": "SUBURB", "value": "={{ $json.suburb }}" },
+            { "name": "VACATE", "value": "={{ $json.vacate_date }}" },
+            { "name": "TOTAL", "value": "={{ $json.total }}" }
+          ]
+        },
+        "options": {
+          "tags": [
+            "EOL Lead",
+            "={{ $json.urgency_tag === 'urgent' ? 'Vacate <7 Days' : ($json.urgency_tag === 'standard' ? 'Vacate 8-14 Days' : 'Vacate 15+ Days') }}"
+          ]
+        }
+      }
+    },
+    {
+      "id": "twilio-sms-confirm",
+      "name": "Twilio: Confirmation SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [900, 480],
+      "parameters": {
+        "operation": "send",
+        "from": "YOUR_TWILIO_NUMBER",
+        "to": "={{ $json.phone }}",
+        "message": "Hi {{ $json.name.split(' ')[0] }}, thanks for choosing Main10! We've received your end-of-lease quote request for {{ $json.suburb }}. We'll call you within 2 hours to confirm your booking. Questions? Reply to this SMS. — Main10 Cleaning 🏠"
+      }
+    },
+    {
+      "id": "drip-urgent-day0",
+      "name": "Urgent: Day 0 — Booking Confirmation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1120, 160],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Your bond-back clean is confirmed — here's what happens next",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>You're in great hands. We've locked in your end-of-lease clean and our team is ready to go.</p><p><strong>Your vacate date: {{ $json.vacate_date }}</strong><br>Suburb: {{ $json.suburb }}<br>Total: ${{ $json.total }}</p><p>We'll confirm your exact time slot by phone within 2 hours.</p><p><strong>Our 7-Day Guarantee:</strong> If your agent flags any issue after inspection, we come back — free.</p><p>— The Main10 Team</p>"
+      }
+    },
+    {
+      "id": "drip-urgent-day1-wait",
+      "name": "Wait 1 Day",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1120, 260],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 1,
+        "unit": "days"
+      }
+    },
+    {
+      "id": "drip-urgent-day1",
+      "name": "Urgent: Day 1 — REIV Checklist",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1340, 160],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Your REIV vacate checklist — what agents actually look for",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>With your vacate coming up fast, here's the REIV checklist we'll work through on the day:</p><ul><li>✓ Oven, rangehood &amp; filters</li><li>✓ Bathroom tiles, grout &amp; screens</li><li>✓ Inside wardrobes &amp; skirting boards</li><li>✓ Window tracks &amp; blinds</li><li>✓ Carpet steam (booked ✓)</li></ul><p>Nothing for you to do — we've got it all covered. If you have any last-minute questions, reply here or call us directly.</p><p>— Main10 Cleaning</p>"
+      }
+    },
+    {
+      "id": "drip-urgent-day2-wait",
+      "name": "Wait 1 More Day",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1340, 260],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 1,
+        "unit": "days"
+      }
+    },
+    {
+      "id": "drip-urgent-day2",
+      "name": "Urgent: Day 2 — Final Nudge",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1560, 160],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Last thing before your clean — a quick heads-up",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>Your clean is nearly here. A couple of things to have ready:</p><ul><li>Keys or access arranged for our team</li><li>Remove personal items from all rooms</li><li>Let us know if anything's changed (extra rooms, pets, etc.)</li></ul><p>Any concerns? Call or text us directly. We're on it.</p><p>— Main10 Cleaning</p>"
+      }
+    },
+    {
+      "id": "drip-standard-day0",
+      "name": "Standard: Day 0 — Confirmation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1120, 380],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Quote received — locking in your end-of-lease clean",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>We've received your quote request. With your vacate on {{ $json.vacate_date }}, you've got a little breathing room — but let's lock in a date soon so we can guarantee availability.</p><p>We'll be in touch within 2 hours to confirm. Total: ${{ $json.total }} (7-day free re-clean guarantee included).</p><p>— Main10 Cleaning</p>"
+      }
+    },
+    {
+      "id": "drip-standard-day3-wait",
+      "name": "Wait 3 Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1120, 460],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 3,
+        "unit": "days"
+      }
+    },
+    {
+      "id": "drip-standard-day3",
+      "name": "Standard: Day 3 — Checklist",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1340, 380],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Your REIV end-of-lease checklist (save this)",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>Planning ahead for your {{ $json.suburb }} vacate? Here's what Melbourne agents inspect most closely:</p><ul><li>✓ Oven &amp; rangehood (most common fail)</li><li>✓ Shower grout &amp; tile limescale</li><li>✓ Inside wardrobes &amp; tracks</li><li>✓ Window tracks &amp; sills</li><li>✓ Carpet condition</li></ul><p>Main10 covers all of this. Ready to confirm your date? Reply here or call us.</p><p>— Main10 Cleaning</p>"
+      }
+    },
+    {
+      "id": "drip-standard-day7-wait",
+      "name": "Wait 4 More Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1340, 460],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 4,
+        "unit": "days"
+      }
+    },
+    {
+      "id": "drip-standard-day7",
+      "name": "Standard: Day 7 — Nudge",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1560, 380],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Spots filling up — confirm your date before it's gone",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>We're booking up fast for the coming weeks. With your vacate on {{ $json.vacate_date }}, now's a good time to lock in.</p><p>Takes 30 seconds — just reply to this email with your preferred day, or call us direct.</p><p>— Main10 Cleaning</p>"
+      }
+    },
+    {
+      "id": "drip-standard-day12-wait",
+      "name": "Wait 5 More Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1560, 460],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 5,
+        "unit": "days"
+      }
+    },
+    {
+      "id": "drip-standard-day12",
+      "name": "Standard: Day 12 — Last Chance",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1780, 380],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Last call — your vacate is coming up",
+        "html": "<p>Hi {{ $json.name.split(' ')[0] }},</p><p>Your vacate date on {{ $json.vacate_date }} is getting close. We want to make sure you've got a clean sorted — bond disputes are stressful and expensive.</p><p>Main10's guarantee means if your agent isn't happy, we come back free of charge. No other Melbourne cleaner offers that.</p><p>Ready? Book now or call us to confirm.</p><p>— Main10 Cleaning</p>"
+      }
+    },
+    {
+      "id": "webhook-job-complete",
+      "name": "Job Complete Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 700],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "job-complete",
+        "responseMode": "onReceived",
+        "responseData": "firstEntryJson",
+        "options": {}
+      }
+    },
+    {
+      "id": "send-photo-report-tenant",
+      "name": "Email: Photo Report to Tenant",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [460, 640],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.tenant_email }}",
+        "subject": "Your clean is done — photo report attached",
+        "html": "<p>Hi {{ $json.tenant_name }},</p><p>We've completed your end-of-lease clean at {{ $json.address }}. Everything is done to REIV inspection standard.</p><p>We've attached a photo report documenting key areas — keep this for your records in case your agent has any questions.</p><p>Remember: our <strong>7-day free re-clean guarantee</strong> is in effect from today. If your agent raises any issue, call us immediately.</p><p>Good luck with your inspection!</p><p>— Main10 Cleaning</p>",
+        "attachments": "={{ $json.photo_report_url }}"
+      }
+    },
+    {
+      "id": "send-photo-report-agent",
+      "name": "Email: Photo Report to Agent",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [460, 760],
+      "parameters": {
+        "fromEmail": "hello@main10.com.au",
+        "fromName": "Main10 Cleaning",
+        "toEmail": "={{ $json.agent_email }}",
+        "subject": "End-of-lease clean completed — {{ $json.address }}",
+        "html": "<p>Hi,</p><p>This is Main10 Cleaning. We've completed the end-of-lease clean at {{ $json.address }} for tenant {{ $json.tenant_name }}.</p><p>Please find our photo report attached, documenting key areas including oven, bathrooms, carpets, and windows.</p><p>If you have any concerns following inspection, please contact us directly and we'll arrange a complimentary return visit within 24 hours.</p><p>Main10 Cleaning<br>hello@main10.com.au<br>0400 000 000</p>",
+        "attachments": "={{ $json.photo_report_url }}"
+      }
+    },
+    {
+      "id": "wait-48hrs-review",
+      "name": "Wait 48 Hours",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [680, 700],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 48,
+        "unit": "hours"
+      }
+    },
+    {
+      "id": "twilio-review-sms",
+      "name": "Twilio: Review Request SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [900, 700],
+      "parameters": {
+        "operation": "send",
+        "from": "YOUR_TWILIO_NUMBER",
+        "to": "={{ $json.tenant_phone }}",
+        "message": "Hi {{ $json.tenant_name.split(' ')[0] }}, it's Main10. Hope your inspection went well! Did everything go smoothly with your clean? Reply YES or NO and we'll follow up. — Main10 🏠"
+      }
+    },
+    {
+      "id": "webhook-sms-reply",
+      "name": "SMS Reply Webhook (Twilio)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [1120, 700],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sms-reply",
+        "responseMode": "onReceived",
+        "responseData": "firstEntryJson",
+        "options": {}
+      }
+    },
+    {
+      "id": "check-positive-reply",
+      "name": "Check Positive Reply",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1340, 700],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Body.toLowerCase() }}",
+              "operation": "contains",
+              "value2": "yes"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "twilio-google-review",
+      "name": "Twilio: Send Google Review Link",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [1560, 640],
+      "parameters": {
+        "operation": "send",
+        "from": "YOUR_TWILIO_NUMBER",
+        "to": "={{ $json.From }}",
+        "message": "That's brilliant — so glad it went well! If you have 2 minutes, a Google review would mean the world to us and helps other tenants find us: YOUR_GOOGLE_REVIEW_LINK — Thanks heaps! Main10 🌟"
+      }
+    },
+    {
+      "id": "twilio-followup-negative",
+      "name": "Twilio: Follow-Up on Negative",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [1560, 760],
+      "parameters": {
+        "operation": "send",
+        "from": "YOUR_TWILIO_NUMBER",
+        "to": "={{ $json.From }}",
+        "message": "Oh no — we're sorry to hear that. Our guarantee means we'll fix any issue for free. Call us now on 0400 000 000 and we'll get it sorted today. — Main10"
+      }
+    }
+  ],
+  "connections": {
+    "EOL Lead Webhook": {
+      "main": [[{ "node": "Calculate Vacate Days", "type": "main", "index": 0 }]]
+    },
+    "Calculate Vacate Days": {
+      "main": [[{ "node": "Route by Urgency", "type": "main", "index": 0 }]]
+    },
+    "Route by Urgency": {
+      "main": [
+        [
+          { "node": "Mailchimp: Add/Update Contact", "type": "main", "index": 0 },
+          { "node": "Twilio: Confirmation SMS", "type": "main", "index": 0 },
+          { "node": "Urgent: Day 0 — Booking Confirmation", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Mailchimp: Add/Update Contact", "type": "main", "index": 0 },
+          { "node": "Twilio: Confirmation SMS", "type": "main", "index": 0 },
+          { "node": "Standard: Day 0 — Confirmation", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Mailchimp: Add/Update Contact", "type": "main", "index": 0 },
+          { "node": "Twilio: Confirmation SMS", "type": "main", "index": 0 },
+          { "node": "Standard: Day 0 — Confirmation", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Urgent: Day 0 — Booking Confirmation": {
+      "main": [[{ "node": "Wait 1 Day", "type": "main", "index": 0 }]]
+    },
+    "Wait 1 Day": {
+      "main": [[{ "node": "Urgent: Day 1 — REIV Checklist", "type": "main", "index": 0 }]]
+    },
+    "Urgent: Day 1 — REIV Checklist": {
+      "main": [[{ "node": "Wait 1 More Day", "type": "main", "index": 0 }]]
+    },
+    "Wait 1 More Day": {
+      "main": [[{ "node": "Urgent: Day 2 — Final Nudge", "type": "main", "index": 0 }]]
+    },
+    "Standard: Day 0 — Confirmation": {
+      "main": [[{ "node": "Wait 3 Days", "type": "main", "index": 0 }]]
+    },
+    "Wait 3 Days": {
+      "main": [[{ "node": "Standard: Day 3 — Checklist", "type": "main", "index": 0 }]]
+    },
+    "Standard: Day 3 — Checklist": {
+      "main": [[{ "node": "Wait 4 More Days", "type": "main", "index": 0 }]]
+    },
+    "Wait 4 More Days": {
+      "main": [[{ "node": "Standard: Day 7 — Nudge", "type": "main", "index": 0 }]]
+    },
+    "Standard: Day 7 — Nudge": {
+      "main": [[{ "node": "Wait 5 More Days", "type": "main", "index": 0 }]]
+    },
+    "Wait 5 More Days": {
+      "main": [[{ "node": "Standard: Day 12 — Last Chance", "type": "main", "index": 0 }]]
+    },
+    "Job Complete Webhook": {
+      "main": [[
+        { "node": "Email: Photo Report to Tenant", "type": "main", "index": 0 },
+        { "node": "Email: Photo Report to Agent", "type": "main", "index": 0 },
+        { "node": "Wait 48 Hours", "type": "main", "index": 0 }
+      ]]
+    },
+    "Wait 48 Hours": {
+      "main": [[{ "node": "Twilio: Review Request SMS", "type": "main", "index": 0 }]]
+    },
+    "SMS Reply Webhook (Twilio)": {
+      "main": [[{ "node": "Check Positive Reply", "type": "main", "index": 0 }]]
+    },
+    "Check Positive Reply": {
+      "main": [
+        [{ "node": "Twilio: Send Google Review Link", "type": "main", "index": 0 }],
+        [{ "node": "Twilio: Follow-Up on Negative", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": ["main10", "eol", "automation"],
+  "meta": {
+    "description": "Main10 EOL lead capture, urgency-aware drip sequence, post-job photo report dispatch, and review gating via SMS reply.",
+    "version": "1.0.0"
+  }
+}
