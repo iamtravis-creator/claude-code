@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "quill-delta-to-react": "^1.2.0"
+  }
+}
