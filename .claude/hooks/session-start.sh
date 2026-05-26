@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-# Install website-builder-setup skill on remote sessions
-if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ]; then
-  SKILL_DIR="$HOME/.claude/commands/website-builder-setup"
-  if [ ! -d "$SKILL_DIR" ]; then
-    git clone --quiet https://github.com/tenfoldmarc/website-builder-setup.git "$SKILL_DIR" 2>/dev/null || true
-  fi
-fi
-
 cat << 'EOF'
 {
   "hookSpecificOutput": {
