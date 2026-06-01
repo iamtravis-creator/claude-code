@@ -1,0 +1,9 @@
+{
+  "name": "json-prompting-for-nano-banana",
+  "version": "1.0.0",
+  "description": "Converts natural language descriptions into structured JSON schemas for Nano Banana Pro (Gemini 3 Pro Image) image generation",
+  "author": {
+    "name": "Travis Studios",
+    "email": "travis.m.studios@gmail.com"
+  }
+}
