@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas text-ink antialiased;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+  .btn-primary {
+    @apply btn bg-gold text-navy-deep shadow-card hover:bg-gold-dark hover:text-white focus-visible:ring-gold;
+  }
+  .btn-ghost {
+    @apply btn border border-white/30 bg-white/10 text-white hover:bg-white/20 focus-visible:ring-white;
+  }
+  .btn-outline {
+    @apply btn border border-hair bg-white text-navy hover:border-navy hover:bg-canvas focus-visible:ring-navy;
+  }
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-gold-dark;
+  }
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+}
