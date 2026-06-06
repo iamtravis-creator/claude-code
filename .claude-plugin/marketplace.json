@@ -145,6 +145,17 @@
       },
       "source": "./plugins/security-guidance",
       "category": "security"
+    },
+    {
+      "name": "bash-safety",
+      "description": "Guidance for writing safe, robust Bash scripts. Auto-invoked when authoring or editing shell scripts. Covers strict mode, quoting, error handling, and portable string comparison.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Travis",
+        "email": "travis.m.studios@gmail.com"
+      },
+      "source": "./plugins/bash-safety",
+      "category": "development"
     }
   ]
 }
