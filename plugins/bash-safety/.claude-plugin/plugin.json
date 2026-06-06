@@ -1,0 +1,9 @@
+{
+  "name": "bash-safety",
+  "version": "1.0.0",
+  "description": "Guidance for writing safe, robust Bash scripts. Auto-invoked when authoring or editing shell scripts.",
+  "author": {
+    "name": "Travis",
+    "email": "travis.m.studios@gmail.com"
+  }
+}
