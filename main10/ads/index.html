@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main10 Clean — Ad Creative Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Page tokens ─────────────────────────────────────────────────────── */
+    :root {
+      --navy:    #1a3c5e;
+      --navy-dk: #0d1f33;
+      --amber:   #f0a500;
+      --amber-lt:#fff8e1;
+      --green:   #2e7d32;
+      --green-lt:#e8f5e9;
+      --red:     #c62828;
+      --surface: #ffffff;
+      --bg:      #f0f2f5;
+      --border:  #dde3ec;
+      --text:    #1c1e21;
+      --muted:   #65676b;
+      --radius:  12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.5;
+    }
+
+    /* ── Page chrome ─────────────────────────────────────────────────────── */
+    .page-header {
+      background: var(--navy); color: white;
+      padding: 32px 40px; position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+    .page-header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; }
+    .logo span { color: var(--amber); }
+    .header-meta { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+    .nav-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-pill {
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+      border: none; border-radius: 100px; padding: 6px 16px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .nav-pill:hover { background: rgba(255,255,255,0.22); }
+
+    .page-body { max-width: 1400px; margin: 0 auto; padding: 40px 40px 80px; }
+    @media (max-width: 768px) { .page-body { padding: 24px 16px 60px; } }
+
+    /* ── Section headings ────────────────────────────────────────────────── */
+    .ad-section { margin-bottom: 64px; }
+    .ad-section-head { margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+    .ad-section-head h2 { font-size: 1.5rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .ad-section-head p { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+
+    /* ── Ad grid ─────────────────────────────────────────────────────────── */
+    .ads-grid { display: flex; gap: 28px; flex-wrap: wrap; }
+    .stories-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+    .carousel-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; }
+
+    /* ── Ad wrapper card ─────────────────────────────────────────────────── */
+    .ad-wrap {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      overflow: hidden; flex-shrink: 0;
+    }
+    .ad-label-bar {
+      background: var(--navy); color: white;
+      padding: 8px 14px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .ad-name { font-size: 0.75rem; font-weight: 700; }
+    .ad-format-badge {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      background: rgba(240,165,0,0.25); color: var(--amber);
+      border-radius: 4px; padding: 2px 8px;
+    }
+    .export-hint {
+      padding: 8px 14px; font-size: 0.72rem; color: var(--muted);
+      background: #fafafa; border-top: 1px solid var(--border);
+    }
+
+    /* ── Facebook / Instagram mock shell ─────────────────────────────────── */
+    .fb-mock {
+      width: 360px;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      border: 1px solid #e4e6eb;
+      background: white;
+    }
+    .fb-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px 6px;
+    }
+    .fb-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--navy); color: var(--amber);
+      font-size: 1rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .fb-page-name { font-weight: 700; font-size: 0.9rem; }
+    .fb-sponsored { font-size: 0.75rem; color: var(--muted); }
+    .fb-dots { margin-left: auto; color: var(--muted); font-size: 1.1rem; cursor: default; }
+    .fb-primary-text { padding: 6px 16px 10px; font-size: 0.875rem; line-height: 1.5; }
+    .fb-primary-text .see-more { color: var(--muted); cursor: default; }
+
+    /* Link preview bar below creative */
+    .fb-link-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; background: #f0f2f5; gap: 12px;
+      border-top: 1px solid #e4e6eb;
+    }
+    .fb-link-url { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .fb-link-headline { font-size: 0.88rem; font-weight: 700; line-height: 1.2; }
+    .fb-link-desc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .fb-cta-btn {
+      background: #e4e6eb; border: none; border-radius: 6px;
+      padding: 8px 14px; font-size: 0.82rem; font-weight: 700;
+      cursor: default; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+    }
+    .fb-engage {
+      display: flex; gap: 0; border-top: 1px solid #e4e6eb;
+      padding: 4px 8px;
+    }
+    .fb-engage button {
+      flex: 1; background: none; border: none; border-radius: 6px;
+      padding: 8px 4px; font-size: 0.82rem; font-weight: 600;
+      color: var(--muted); cursor: default; font-family: inherit;
+    }
+    .fb-engage button:hover { background: #f0f2f5; }
+
+    /* ── Stories mock shell ──────────────────────────────────────────────── */
+    .stories-mock {
+      width: 225px;
+      border: 1px solid #e4e6eb;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--navy-dk);
+    }
+    .stories-header {
+      padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+      position: relative;
+    }
+    .stories-bar {
+      display: flex; gap: 3px; padding: 8px 10px 0;
+    }
+    .stories-bar-seg {
+      flex: 1; height: 2px; background: rgba(255,255,255,0.4); border-radius: 2px;
+    }
+    .stories-bar-seg.active { background: white; }
+    .stories-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--navy); border: 2px solid var(--amber);
+      color: var(--amber); font-size: 0.6rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .stories-page { font-size: 0.72rem; font-weight: 700; color: white; }
+    .stories-sponsored { font-size: 0.62rem; color: rgba(255,255,255,0.6); }
+    .stories-creative { width: 100%; aspect-ratio: 9/16; overflow: hidden; position: relative; }
+    .stories-swipe {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      padding: 20px 14px 14px;
+      text-align: center;
+    }
+    .stories-cta-pill {
+      display: inline-block;
+      background: white; color: var(--navy);
+      border-radius: 100px; padding: 8px 24px;
+      font-size: 0.78rem; font-weight: 700;
+      cursor: default;
+    }
+    .stories-swipe-arrow {
+      color: white; font-size: 0.72rem; margin-bottom: 6px;
+    }
+
+    /* ── Carousel mock ───────────────────────────────────────────────────── */
+    .carousel-card {
+      width: 200px; flex-shrink: 0;
+      border: 1px solid #e4e6eb;
+      border-radius: 0;
+      overflow: hidden;
+      background: white;
+    }
+    .carousel-card:first-child { border-radius: 8px 0 0 8px; }
+    .carousel-card:last-child { border-radius: 0 8px 8px 0; }
+    .carousel-creative { width: 200px; height: 200px; }
+    .carousel-link-bar {
+      padding: 10px 12px; background: #f0f2f5;
+      border-top: 1px solid #e4e6eb;
+    }
+    .carousel-link-headline { font-size: 0.82rem; font-weight: 700; line-height: 1.3; }
+    .carousel-link-desc { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .carousel-cta { font-size: 0.72rem; font-weight: 700; color: #1877f2; margin-top: 4px; cursor: default; }
+
+    /* ── Storyboard (video script) ───────────────────────────────────────── */
+    .storyboard { display: flex; gap: 4px; flex-wrap: wrap; }
+    .sb-frame {
+      width: 130px; background: var(--navy-dk);
+      border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    }
+    .sb-timecode {
+      background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.8);
+      font-size: 0.65rem; font-family: monospace;
+      padding: 3px 8px;
+    }
+    .sb-visual {
+      height: 80px; display: flex; align-items: center; justify-content: center;
+      padding: 8px; text-align: center;
+    }
+    .sb-text {
+      padding: 8px; border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.7rem; color: rgba(255,255,255,0.85); line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       CREATIVE DESIGNS — each ad's visual content
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .creative {
+      width: 100%; aspect-ratio: 1/1;
+      overflow: hidden; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Creative A: EOL Urgency ─────────────────────────────────────────── */
+    .creative--urgency {
+      background: var(--navy);
+      flex-direction: column; text-align: center; padding: 28px;
+      gap: 0;
+    }
+    .creative--urgency .c-kicker {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
+    }
+    .creative--urgency .c-hook {
+      font-size: 2.5rem; font-weight: 900; line-height: 0.95;
+      letter-spacing: -0.04em; color: var(--amber);
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .creative--urgency .c-sub {
+      font-size: 1.1rem; font-weight: 600; color: white; line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    .creative--urgency .c-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px; padding: 7px 18px;
+      font-size: 0.8rem; font-weight: 700; color: white;
+      margin-bottom: 16px;
+    }
+    .creative--urgency .c-logo {
+      font-size: 0.72rem; font-weight: 800; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+    }
+    .creative--urgency .c-logo span { color: var(--amber); }
+    .creative--urgency .c-ribbon {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: var(--amber);
+    }
+
+    /* ── Creative B: EOL Guarantee ───────────────────────────────────────── */
+    .creative--guarantee {
+      background: var(--navy-dk);
+      flex-direction: column; padding: 28px; text-align: left; gap: 0;
+      align-items: flex-start;
+    }
+    .creative--guarantee .c-quote-mark {
+      font-size: 5rem; font-weight: 900; line-height: 0.7;
+      color: var(--amber); opacity: 0.9; font-family: Georgia, serif;
+      margin-bottom: 8px;
+    }
+    .creative--guarantee .c-quote-text {
+      font-size: 1.05rem; font-weight: 600; color: white; line-height: 1.45;
+      margin-bottom: 16px; max-width: 260px;
+    }
+    .creative--guarantee .c-stars { color: var(--amber); font-size: 0.95rem; letter-spacing: 2px; margin-bottom: 6px; }
+    .creative--guarantee .c-reviewer { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+    .creative--guarantee .c-guarantee-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: white;
+      border-radius: 8px; padding: 10px 16px;
+      font-size: 0.82rem; font-weight: 700; line-height: 1.3;
+    }
+
+    /* ── Creative C: EOL Price Anchor ────────────────────────────────────── */
+    .creative--price {
+      background: white;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .creative--price .c-left {
+      background: var(--navy);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px 16px; text-align: center;
+    }
+    .creative--price .c-from { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .creative--price .c-price-num { font-size: 3.4rem; font-weight: 900; color: var(--amber); letter-spacing: -0.05em; line-height: 1; }
+    .creative--price .c-price-sup { font-size: 1.5rem; vertical-align: super; }
+    .creative--price .c-fixed-label {
+      margin-top: 8px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: rgba(255,255,255,0.6);
+    }
+    .creative--price .c-no-surp { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
+    .creative--price .c-right {
+      padding: 20px 18px; display: flex; flex-direction: column; justify-content: center; gap: 10px;
+    }
+    .creative--price .c-list-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin-bottom: 4px; }
+    .creative--price .c-check-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .creative--price .c-check-list li { font-size: 0.8rem; color: #444; padding-left: 18px; position: relative; line-height: 1.3; }
+    .creative--price .c-check-list li::before { content: '✓'; color: var(--green); font-weight: 700; position: absolute; left: 0; font-size: 0.72rem; }
+    .creative--price .c-guarantee-strip {
+      background: var(--green-lt); border-top: 1px solid rgba(46,125,50,0.2);
+      padding: 8px 18px; font-size: 0.72rem; font-weight: 700; color: var(--green);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ── Creative D: Property Manager ────────────────────────────────────── */
+    .creative--pm {
+      background: #1a1a2e;
+      flex-direction: column; padding: 28px 24px; text-align: left; align-items: flex-start;
+    }
+    .creative--pm .c-label {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 16px;
+    }
+    .creative--pm .c-headline {
+      font-size: 1.8rem; font-weight: 900; color: white; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 8px;
+    }
+    .creative--pm .c-headline em { color: var(--amber); font-style: normal; }
+    .creative--pm .c-subline { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.5; margin-bottom: 20px; }
+    .creative--pm .c-badges { display: flex; flex-direction: column; gap: 8px; }
+    .creative--pm .c-badge {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; padding: 9px 14px;
+      font-size: 0.8rem; font-weight: 600; color: white;
+    }
+    .creative--pm .c-badge-icon { font-size: 1rem; }
+
+    /* ── Creative E: Remarketing Form Abandoner ──────────────────────────── */
+    .creative--retarget {
+      background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 28px;
+    }
+    .creative--retarget .c-icon { font-size: 3rem; margin-bottom: 12px; }
+    .creative--retarget .c-headline { font-size: 1.3rem; font-weight: 900; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.2; }
+    .creative--retarget .c-sub { font-size: 0.88rem; color: #555; line-height: 1.5; margin-bottom: 20px; }
+    .creative--retarget .c-btn-mock {
+      background: var(--amber); color: var(--navy);
+      border-radius: 8px; padding: 12px 28px;
+      font-size: 0.88rem; font-weight: 800;
+    }
+
+    /* ── Creative F: Spring Clean ────────────────────────────────────────── */
+    .creative--spring {
+      background: linear-gradient(160deg, #1b5e20 0%, #2e7d32 50%, #388e3c 100%);
+      flex-direction: column; align-items: flex-start; padding: 28px; text-align: left;
+    }
+    .creative--spring .c-season-tag {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px; padding: 4px 14px;
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.9); margin-bottom: 16px;
+    }
+    .creative--spring .c-headline { font-size: 2.4rem; font-weight: 900; color: white; line-height: 1; letter-spacing: -0.03em; margin-bottom: 6px; }
+    .creative--spring .c-headline span { color: #a5d6a7; }
+    .creative--spring .c-sub { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-bottom: 20px; line-height: 1.5; }
+    .creative--spring .c-offer-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--amber); color: var(--navy);
+      border-radius: 100px; padding: 8px 20px;
+      font-size: 0.85rem; font-weight: 800;
+    }
+    .creative--spring .c-suburb-list { margin-top: 14px; font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+
+    /* ── Creative G: Remarketing Past Customer ───────────────────────────── */
+    .creative--upsell {
+      background: white;
+      flex-direction: column; align-items: center; padding: 28px; text-align: center;
+    }
+    .creative--upsell .c-logo-big { font-size: 1.6rem; font-weight: 900; color: var(--navy); letter-spacing: -0.04em; margin-bottom: 14px; }
+    .creative--upsell .c-logo-big span { color: var(--amber); }
+    .creative--upsell .c-headline { font-size: 1.3rem; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
+    .creative--upsell .c-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+    .creative--upsell .c-savings {
+      background: var(--amber-lt); border: 2px solid var(--amber);
+      border-radius: 12px; padding: 14px 24px;
+    }
+    .creative--upsell .c-savings-num { font-size: 2rem; font-weight: 900; color: var(--amber); letter-spacing: -0.03em; line-height: 1; }
+    .creative--upsell .c-savings-label { font-size: 0.75rem; font-weight: 600; color: #555; margin-top: 2px; }
+
+    /* ── Stories Creative: EOL ───────────────────────────────────────────── */
+    .stories-creative--eol {
+      background: linear-gradient(175deg, var(--navy-dk) 0%, #0f2744 60%, #1a3c5e 100%);
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 20px 20px 70px;
+      text-align: center; gap: 0;
+    }
+    .stories-creative--eol .s-kicker { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 18px; }
+    .stories-creative--eol .s-line { font-size: 1.5rem; font-weight: 900; color: white; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 6px; }
+    .stories-creative--eol .s-line--amber { color: var(--amber); font-size: 1.8rem; }
+    .stories-creative--eol .s-divider { width: 40px; height: 2px; background: var(--amber); border-radius: 2px; margin: 16px auto; }
+    .stories-creative--eol .s-guarantee { font-size: 0.82rem; color: rgba(255,255,255,0.75); line-height: 1.5; margin-top: 10px; }
+    .stories-creative--eol .s-price-box {
+      background: rgba(240,165,0,0.15); border: 1px solid rgba(240,165,0,0.3);
+      border-radius: 10px; padding: 12px 20px; margin-top: 14px;
+    }
+    .stories-creative--eol .s-price-box .s-price-num { font-size: 2rem; font-weight: 900; color: var(--amber); letter-spacing: -0.03em; }
+    .stories-creative--eol .s-price-box .s-price-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .stories-creative--eol .s-main10 { font-size: 0.72rem; font-weight: 800; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; position: absolute; top: 60px; right: 16px; }
+
+    /* ── Stories Creative: Spring ────────────────────────────────────────── */
+    .stories-creative--spring {
+      background: linear-gradient(170deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%);
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 20px 20px 70px; text-align: center;
+    }
+    .stories-creative--spring .s-leaf { font-size: 2.5rem; margin-bottom: 12px; }
+    .stories-creative--spring .s-season { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .stories-creative--spring .s-headline { font-size: 2rem; font-weight: 900; color: white; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .stories-creative--spring .s-sub { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 18px; }
+    .stories-creative--spring .s-discount-pill { background: var(--amber); color: var(--navy); border-radius: 100px; padding: 8px 24px; font-size: 0.85rem; font-weight: 800; }
+
+    /* ── Carousel card creatives ─────────────────────────────────────────── */
+    .carousel-c-cover { background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 8px; height: 100%; }
+    .carousel-c-cover .cc-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); font-weight: 700; }
+    .carousel-c-cover .cc-headline { font-size: 1.05rem; font-weight: 900; color: white; line-height: 1.1; letter-spacing: -0.02em; }
+    .carousel-c-cover .cc-sub { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .carousel-c-cover .cc-badge { background: var(--amber); color: var(--navy); border-radius: 6px; padding: 6px 12px; font-size: 0.72rem; font-weight: 800; margin-top: 4px; }
+
+    .carousel-c-room {
+      display: grid; grid-template-rows: 1fr 1fr; height: 100%;
+    }
+    .carousel-c-room .cc-before { background: #b0b0b0; display: flex; align-items: flex-start; padding: 6px 10px; }
+    .carousel-c-room .cc-after  { background: #f0f9f0; display: flex; align-items: flex-start; padding: 6px 10px; border-top: 2px solid var(--green); }
+    .carousel-c-room .cc-room-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+    .carousel-c-room .cc-before .cc-room-label { color: rgba(255,255,255,0.8); }
+    .carousel-c-room .cc-after  .cc-room-label { color: var(--green); }
+    .carousel-c-room .cc-content { display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+
+    .carousel-c-price { background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; height: 100%; }
+    .carousel-c-price .cc-from { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+    .carousel-c-price .cc-amount { font-size: 2.4rem; font-weight: 900; color: var(--navy); letter-spacing: -0.04em; line-height: 1; color: var(--amber); }
+    .carousel-c-price .cc-guarantee { font-size: 0.7rem; color: var(--green); font-weight: 700; margin-top: 6px; }
+    .carousel-c-price .cc-cta { background: var(--navy); color: white; border-radius: 6px; padding: 8px 16px; font-size: 0.75rem; font-weight: 800; margin-top: 10px; }
+
+    /* ── Storyboard frame visuals ────────────────────────────────────────── */
+    .sb-v-moving { font-size: 0.9rem; font-weight: 900; color: var(--amber); text-align: center; line-height: 1.1; }
+    .sb-v-logo { font-size: 0.8rem; font-weight: 900; color: white; text-align: center; }
+    .sb-v-logo span { color: var(--amber); }
+    .sb-v-icon { font-size: 1.8rem; }
+    .sb-v-guarantee { font-size: 0.75rem; font-weight: 800; color: #66bb6a; text-align: center; }
+    .sb-v-cta { font-size: 0.7rem; font-weight: 700; color: white; text-align: center; }
+
+    /* ── Targeting info boxes ────────────────────────────────────────────── */
+    .targeting-card {
+      background: var(--navy); color: white;
+      border-radius: 10px; padding: 18px 20px; margin-top: 20px;
+      max-width: 360px;
+    }
+    .targeting-card h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber); margin-bottom: 10px; }
+    .targeting-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .targeting-card li { font-size: 0.8rem; color: rgba(255,255,255,0.78); padding-left: 16px; position: relative; }
+    .targeting-card li::before { content: '›'; position: absolute; left: 0; color: var(--amber); font-weight: 700; }
+
+    /* ── Misc ────────────────────────────────────────────────────────────── */
+    .section-divider { display: flex; align-items: center; gap: 12px; margin: 40px 0 28px; }
+    .section-divider h3 { font-size: 1rem; font-weight: 700; color: var(--navy); white-space: nowrap; }
+    .section-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .tag { display: inline-flex; align-items: center; gap: 4px; background: #e4e6eb; color: var(--muted); border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; font-weight: 600; }
+    .tag--green { background: var(--green-lt); color: var(--green); }
+    .tag--amber { background: var(--amber-lt); color: #a06800; }
+    .ad-meta { display: flex; gap: 6px; padding: 8px 14px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <div class="logo">Main10<span>Clean</span></div>
+      <div class="header-meta">Ad Creative Library · 8 campaigns · All formats</div>
+    </div>
+    <nav class="nav-pills">
+      <a href="#feed" class="nav-pill">Feed Ads</a>
+      <a href="#stories" class="nav-pill">Stories</a>
+      <a href="#carousel" class="nav-pill">Carousel</a>
+      <a href="#video" class="nav-pill">Video Scripts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-body">
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 1 — FEED ADS (1:1, 1080×1080)
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section class="ad-section" id="feed">
+    <div class="ad-section-head">
+      <h2>Feed Ads — 1080×1080 (Square)</h2>
+      <p>Upload at 1080×1080 px. Screenshot the creative area only for the image asset. Replace [SUBURB] before uploading.</p>
+    </div>
+
+    <!-- EOL VARIANTS -->
+    <div class="section-divider">
+      <h3>End-of-Lease Campaign</h3>
+      <div class="section-divider-line"></div>
+      <span class="tag tag--amber">Primary campaign</span>
+    </div>
+
+    <div class="ads-grid">
+
+      <!-- Ad 1: EOL Urgency -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">EOL — Variant A — Urgency</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            Moving out of your rental in Richmond? Don't risk losing your bond. Main10 Clean does your full end-of-lease clean — oven, bathrooms, carpets — with a 7-day free re-clean guarantee. <span class="see-more">See more</span>
+          </div>
+          <!-- CREATIVE -->
+          <div class="creative creative--urgency">
+            <div class="c-ribbon"></div>
+            <div class="c-kicker">Melbourne end-of-lease</div>
+            <div class="c-hook">Moving<br>out?</div>
+            <div class="c-sub">Don't risk<br>losing your bond.</div>
+            <div class="c-pill">✓ 7-day free re-clean guarantee</div>
+            <div class="c-logo">Main10<span>Clean</span></div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">Bond-back clean in Richmond</div>
+              <div class="fb-link-desc">Fixed price. 7-day guarantee.</div>
+            </div>
+            <div class="fb-cta-btn">Get Quote</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag tag--amber">Cold audience</span>
+          <span class="tag">Likely to move</span>
+          <span class="tag">CTA: Get Quote</span>
+        </div>
+        <div class="export-hint">Screenshot creative area at 1080×1080 · Destination: /end-of-lease</div>
+      </div>
+
+      <!-- Ad 2: EOL Guarantee -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">EOL — Variant B — Guarantee</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            "We got our full $2,400 bond back." Main10 Clean guarantees your end-of-lease clean passes the agent inspection — or we return within 24 hours. Free. <span class="see-more">See more</span>
+          </div>
+          <!-- CREATIVE -->
+          <div class="creative creative--guarantee">
+            <div class="c-quote-mark">"</div>
+            <div class="c-quote-text">We got our full $2,400 bond back. The agent cleared it same day.</div>
+            <div class="c-stars">★★★★★</div>
+            <div class="c-reviewer">Sarah T. · Richmond resident</div>
+            <div class="c-guarantee-badge">
+              🔒 7-day free re-clean guarantee
+            </div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">Bond-back guarantee — Richmond</div>
+              <div class="fb-link-desc">Free re-clean if the agent flags anything.</div>
+            </div>
+            <div class="fb-cta-btn">Book Now</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag tag--amber">Warm / Retarget</span>
+          <span class="tag">Social proof</span>
+          <span class="tag">CTA: Book Now</span>
+        </div>
+        <div class="export-hint">Screenshot creative area at 1080×1080 · Destination: /end-of-lease</div>
+      </div>
+
+      <!-- Ad 3: EOL Price Anchor -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">EOL — Variant C — Price Anchor</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            End-of-lease clean in Richmond from $299. Fixed price — no hourly surprises. Oven, rangehood, bathrooms, carpets included. Book online in 3 minutes.
+          </div>
+          <!-- CREATIVE -->
+          <div class="creative creative--price">
+            <div class="c-left">
+              <div class="c-from">From</div>
+              <div class="c-price-num"><span class="c-price-sup">$</span>299</div>
+              <div class="c-fixed-label">Fixed price</div>
+              <div class="c-no-surp">No hourly surprises</div>
+            </div>
+            <div class="c-right">
+              <div class="c-list-title">Included</div>
+              <ul class="c-check-list">
+                <li>Full oven clean</li>
+                <li>Rangehood &amp; stovetop</li>
+                <li>All bathrooms</li>
+                <li>Skirting boards</li>
+                <li>Interior windows</li>
+                <li>Vacuum &amp; mop</li>
+              </ul>
+              <div class="c-guarantee-strip">
+                🔒 7-day re-clean guarantee
+              </div>
+            </div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">From $299 — end-of-lease clean</div>
+              <div class="fb-link-desc">Includes oven + carpets. No hidden fees.</div>
+            </div>
+            <div class="fb-cta-btn">See Prices</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag">Shopping intent</span>
+          <span class="tag">CTA: See Prices</span>
+        </div>
+        <div class="export-hint">Screenshot creative area at 1080×1080 · Destination: /end-of-lease#pricing</div>
+      </div>
+
+    </div><!-- /EOL ads grid -->
+
+    <!-- PROPERTY MANAGER CAMPAIGN -->
+    <div class="section-divider">
+      <h3>Property Manager Campaign</h3>
+      <div class="section-divider-line"></div>
+      <span class="tag">B2B · PM job title targeting</span>
+    </div>
+
+    <div class="ads-grid">
+
+      <!-- Ad 4: PM Problem/Solution -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">PM — Variant A — Problem/Solution</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            Bond-back disputes eating into your admin time? Main10 Clean delivers REIV-standard EOL cleans with a 24-hour free re-clean guarantee. Photo report sent to you after every job.
+          </div>
+          <!-- CREATIVE -->
+          <div class="creative creative--pm">
+            <div class="c-label">For property managers</div>
+            <div class="c-headline">No more<br>bond <em>disputes.</em></div>
+            <div class="c-subline">REIV-standard cleans. Photo report every job. 24-hour re-clean guarantee.</div>
+            <div class="c-badges">
+              <div class="c-badge"><span class="c-badge-icon">📋</span> REIV checklist sign-off</div>
+              <div class="c-badge"><span class="c-badge-icon">📸</span> Photo report — every job</div>
+              <div class="c-badge"><span class="c-badge-icon">⚡</span> 24-hr re-clean guarantee</div>
+            </div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">End-of-lease cleans — no disputes</div>
+              <div class="fb-link-desc">24-hr guarantee. Photo report every job.</div>
+            </div>
+            <div class="fb-cta-btn">Learn More</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag">PM job title targeting</span>
+          <span class="tag">CTA: Learn More</span>
+        </div>
+        <div class="export-hint">Screenshot creative at 1080×1080 · Destination: PM landing page</div>
+      </div>
+
+    </div>
+
+    <!-- REMARKETING CAMPAIGNS -->
+    <div class="section-divider">
+      <h3>Remarketing</h3>
+      <div class="section-divider-line"></div>
+      <span class="tag tag--green">Requires Meta Pixel · 500+ visitors</span>
+    </div>
+
+    <div class="ads-grid">
+
+      <!-- Ad 5: Form Abandoner -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">RTG — Form Abandoner (7 days)</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            Almost there — your Main10 Clean booking is saved. Need help choosing a date or service? Reply to this ad or call us. We'll sort it in 2 minutes.
+          </div>
+          <div class="creative creative--retarget">
+            <div class="c-icon">🧹</div>
+            <div class="c-headline">Your booking isn't finished yet.</div>
+            <div class="c-sub">You're just 2 minutes away from a cleaner home. We saved your details.</div>
+            <div class="c-btn-mock">Complete your booking →</div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">Finish your booking — we'll help.</div>
+              <div class="fb-link-desc">Book in 2 minutes. 10% off first clean.</div>
+            </div>
+            <div class="fb-cta-btn">Complete Booking</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag">Highest priority segment</span>
+          <span class="tag">7-day window</span>
+          <span class="tag">Cap 3×/week</span>
+        </div>
+        <div class="export-hint">Target: form start but no submit · Custom conversion event</div>
+      </div>
+
+      <!-- Ad 6: Past Customer Upsell -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">RTG — Past Customer Upsell</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            Loved your Main10 Clean? Book a fortnightly clean and save 5% every visit. Same cleaner, same standards — zero effort for you.
+          </div>
+          <div class="creative creative--upsell">
+            <div class="c-logo-big">Main10<span>Clean</span></div>
+            <div class="c-headline">Love a clean home?<br>Make it automatic.</div>
+            <div class="c-sub">Fortnightly cleans. Same cleaner. No lock-in.</div>
+            <div class="c-savings">
+              <div class="c-savings-num">5% off</div>
+              <div class="c-savings-label">every fortnightly clean</div>
+            </div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">Save 5% on fortnightly cleans</div>
+              <div class="fb-link-desc">Same cleaner every visit. No lock-in.</div>
+            </div>
+            <div class="fb-cta-btn">Book Again</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag">Client email list upload</span>
+          <span class="tag">Custom Audience</span>
+        </div>
+        <div class="export-hint">Upload client CSV → Meta Custom Audience · Destination: /#quote</div>
+      </div>
+
+    </div>
+
+    <!-- SPRING CLEAN -->
+    <div class="section-divider">
+      <h3>Spring Clean Campaign</h3>
+      <div class="section-divider-line"></div>
+      <span class="tag">Launch Aug 1 · Run 6–8 weeks</span>
+    </div>
+
+    <div class="ads-grid">
+
+      <!-- Ad 7: Spring -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">SPRING — Variant A — Seasonal Hook</span>
+          <span class="ad-format-badge">Feed 1:1</span>
+        </div>
+        <div class="fb-mock">
+          <div class="fb-header">
+            <div class="fb-avatar">M</div>
+            <div>
+              <div class="fb-page-name">Main10 Clean</div>
+              <div class="fb-sponsored">Sponsored · 🌐</div>
+            </div>
+            <div class="fb-dots">⋯</div>
+          </div>
+          <div class="fb-primary-text">
+            Spring's here — is your home ready? Main10 Clean's spring deep-clean tackles every room: oven, windows, wardrobes, skirting boards. Serving Richmond and surrounds. Book now — 10% off August.
+          </div>
+          <div class="creative creative--spring">
+            <div class="c-season-tag">✦ Spring 2025</div>
+            <div class="c-headline">Spring<br><span>clean</span><br>season.</div>
+            <div class="c-sub">Oven, windows, wardrobes, skirting boards. Every room, done properly.</div>
+            <div class="c-offer-pill">🍃 10% off — August bookings</div>
+            <div class="c-suburb-list">Serving Richmond · Fitzroy · South Yarra · Collingwood</div>
+          </div>
+          <div class="fb-link-bar">
+            <div>
+              <div class="fb-link-url">main10.com.au</div>
+              <div class="fb-link-headline">Spring deep-clean in Richmond</div>
+              <div class="fb-link-desc">10% off for August bookings.</div>
+            </div>
+            <div class="fb-cta-btn">Book Now</div>
+          </div>
+          <div class="fb-engage">
+            <button>👍 Like</button>
+            <button>💬 Comment</button>
+            <button>↗ Share</button>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag">Aug–Sep only</span>
+          <span class="tag">Homeowners + renters</span>
+        </div>
+        <div class="export-hint">Screenshot creative at 1080×1080 · Pause campaign Oct 1</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 2 — STORIES ADS (9:16, 1080×1920)
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section class="ad-section" id="stories">
+    <div class="ad-section-head">
+      <h2>Stories — 1080×1920 (9:16 vertical)</h2>
+      <p>
+        Stories run on Facebook Stories, Instagram Stories, and Messenger Stories.
+        Export creative area at 1080×1920. Minimal text — visual does the work.
+      </p>
+    </div>
+
+    <div class="stories-grid">
+
+      <!-- Stories 1: EOL -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">EOL — Stories Format</span>
+          <span class="ad-format-badge">Stories 9:16</span>
+        </div>
+        <div class="stories-mock">
+          <div class="stories-bar">
+            <div class="stories-bar-seg active"></div>
+            <div class="stories-bar-seg"></div>
+            <div class="stories-bar-seg"></div>
+          </div>
+          <div class="stories-header">
+            <div class="stories-avatar">M</div>
+            <div>
+              <div class="stories-page">Main10 Clean</div>
+              <div class="stories-sponsored">Sponsored</div>
+            </div>
+          </div>
+          <div class="stories-creative">
+            <div class="stories-creative--eol">
+              <div class="s-main10">Main10Clean</div>
+              <div class="s-kicker">Melbourne · End-of-Lease</div>
+              <div class="s-line s-line--amber">Moving out?</div>
+              <div class="s-line">Don't lose</div>
+              <div class="s-line">your bond.</div>
+              <div class="s-divider"></div>
+              <div class="s-guarantee">We guarantee a pass — or we come back free.</div>
+              <div class="s-price-box">
+                <div class="s-price-num">From $299</div>
+                <div class="s-price-label">Fixed price · All included</div>
+              </div>
+            </div>
+            <div class="stories-swipe">
+              <div class="stories-swipe-arrow">↑ Swipe up</div>
+              <div class="stories-cta-pill">Get My Fixed Price</div>
+            </div>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag tag--amber">Likely to move</span>
+          <span class="tag">3–5km radius</span>
+        </div>
+        <div class="export-hint">Creative: 1080×1920 · Link sticker → /end-of-lease</div>
+      </div>
+
+      <!-- Stories 2: Spring -->
+      <div class="ad-wrap">
+        <div class="ad-label-bar">
+          <span class="ad-name">SPRING — Stories Format</span>
+          <span class="ad-format-badge">Stories 9:16</span>
+        </div>
+        <div class="stories-mock">
+          <div class="stories-bar">
+            <div class="stories-bar-seg active"></div>
+            <div class="stories-bar-seg"></div>
+            <div class="stories-bar-seg"></div>
+          </div>
+          <div class="stories-header">
+            <div class="stories-avatar">M</div>
+            <div>
+              <div class="stories-page">Main10 Clean</div>
+              <div class="stories-sponsored">Sponsored</div>
+            </div>
+          </div>
+          <div class="stories-creative">
+            <div class="stories-creative--spring">
+              <div class="s-leaf">🍃</div>
+              <div class="s-season">Spring 2025</div>
+              <div class="s-headline">Spring clean<br>season is here.</div>
+              <div class="s-sub">Richmond + surrounding suburbs.<br>Book now and save 10%.</div>
+              <div class="s-discount-pill">10% off — August bookings</div>
+            </div>
+            <div class="stories-swipe">
+              <div class="stories-swipe-arrow">↑ Swipe up</div>
+              <div class="stories-cta-pill">Book Now</div>
+            </div>
+          </div>
+        </div>
+        <div class="ad-meta">
+          <span class="tag">Aug–Sep</span>
+          <span class="tag">Homeowners</span>
+        </div>
+        <div class="export-hint">Creative: 1080×1920 · Link sticker → /#quote</div>
+      </div>
+
+    </div>
+
+    <!-- Targeting callout -->
+    <div class="targeting-card">
+      <h4>Stories Best Practices</h4>
+      <ul>
+        <li>Keep text to 3–4 lines max — thumb moves fast</li>
+        <li>Put the hook in the first 2 seconds</li>
+        <li>Replace text with real before/after photos once available</li>
+        <li>Add a link sticker (not swipe-up for newer accounts)</li>
+        <li>Run Stories and Feed as separate ad sets — don't cross-place</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 3 — CAROUSEL (5 cards)
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section class="ad-section" id="carousel">
+    <div class="ad-section-head">
+      <h2>Carousel — EOL Before/After (5 cards)</h2>
+      <p>
+        Use once you have real before/after photos. Each card = one room.
+        Replace CSS illustrations with actual before/after photos.
+        Each card is 1080×1080 at upload.
+      </p>
+    </div>
+
+    <div class="ad-wrap" style="max-width: 100%; overflow: hidden;">
+      <div class="ad-label-bar">
+        <span class="ad-name">EOL — Carousel — Before/After Room Tour</span>
+        <span class="ad-format-badge">Carousel 1:1</span>
+      </div>
+
+      <!-- FB top chrome -->
+      <div class="fb-mock" style="width: 100%; max-width: 100%;">
+        <div class="fb-header">
+          <div class="fb-avatar">M</div>
+          <div>
+            <div class="fb-page-name">Main10 Clean</div>
+            <div class="fb-sponsored">Sponsored · 🌐</div>
+          </div>
+          <div class="fb-dots">⋯</div>
+        </div>
+        <div class="fb-primary-text">
+          Moving out of Richmond? See what a Main10 Clean end-of-lease clean looks like room by room.
+          7-day bond-back guarantee — fixed price from $299.
+        </div>
+
+        <!-- Cards row -->
+        <div class="carousel-row" style="padding: 0 0 8px;">
+
+          <!-- Card 1: Cover -->
+          <div class="carousel-card">
+            <div class="carousel-creative">
+              <div class="carousel-c-cover">
+                <div class="cc-label">Main10 Clean · Richmond</div>
+                <div class="cc-headline">Inspect-ready<br>end-of-lease clean.</div>
+                <div class="cc-sub">Every room. Every surface.</div>
+                <div class="cc-badge">From $299 fixed</div>
+              </div>
+            </div>
+            <div class="carousel-link-bar">
+              <div class="carousel-link-headline">Inspect-ready in Richmond</div>
+              <div class="carousel-link-desc">Main10 Bond-Back Clean</div>
+              <div class="carousel-cta">Get Quote</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Oven -->
+          <div class="carousel-card">
+            <div class="carousel-creative">
+              <div class="carousel-c-room">
+                <div class="cc-before" style="background:#8d6e63; justify-content: space-between; align-items: flex-start; flex-direction: column; padding: 8px 10px;">
+                  <div class="cc-room-label" style="color:rgba(255,255,255,0.9)">BEFORE</div>
+                  <div style="font-size:2rem; align-self:center;">🍳</div>
+                </div>
+                <div class="cc-after" style="background:#e8f5e9; justify-content: space-between; align-items: flex-start; flex-direction: column; padding: 8px 10px;">
+                  <div class="cc-room-label" style="color:var(--green)">AFTER ✓</div>
+                  <div style="font-size:2rem; align-self:center;">✨</div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-link-bar">
+              <div class="carousel-link-headline">Oven &amp; rangehood</div>
+              <div class="carousel-link-desc">Agents always check here first</div>
+              <div class="carousel-cta">See More →</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Bathroom -->
+          <div class="carousel-card">
+            <div class="carousel-creative">
+              <div class="carousel-c-room">
+                <div class="cc-before" style="background:#7986cb; justify-content: space-between; align-items: flex-start; flex-direction: column; padding: 8px 10px;">
+                  <div class="cc-room-label" style="color:rgba(255,255,255,0.9)">BEFORE</div>
+                  <div style="font-size:2rem; align-self:center;">🚿</div>
+                </div>
+                <div class="cc-after" style="background:#e8f5e9; justify-content: space-between; align-items: flex-start; flex-direction: column; padding: 8px 10px;">
+                  <div class="cc-room-label" style="color:var(--green)">AFTER ✓</div>
+                  <div style="font-size:2rem; align-self:center;">✨</div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-link-bar">
+              <div class="carousel-link-headline">Bathroom &amp; grout</div>
+              <div class="carousel-link-desc">Tiles, taps, mirrors — REIV standard</div>
+              <div class="carousel-cta">See More →</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Carpet -->
+          <div class="carousel-card">
+            <div class="carousel-creative">
+              <div class="carousel-c-room">
+                <div class="cc-before" style="background:#a1887f; justify-content: space-between; align-items: flex-start; flex-direction: column; padding: 8px 10px;">
+                  <div class="cc-room-label" style="color:rgba(255,255,255,0.9)">BEFORE</div>
+                  <div style="font-size:2rem; align-self:center;">🟫</div>
+                </div>
+                <div class="cc-after" style="background:#e8f5e9; justify-content: space-between; align-items: flex-start; flex-direction: column; padding: 8px 10px;">
+                  <div class="cc-room-label" style="color:var(--green)">AFTER ✓</div>
+                  <div style="font-size:2rem; align-self:center;">✨</div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-link-bar">
+              <div class="carousel-link-headline">Carpet steam clean</div>
+              <div class="carousel-link-desc">Hot water extraction — add-on $89</div>
+              <div class="carousel-cta">See More →</div>
+            </div>
+          </div>
+
+          <!-- Card 5: Pricing -->
+          <div class="carousel-card">
+            <div class="carousel-creative">
+              <div class="carousel-c-price">
+                <div class="cc-from">Fixed price from</div>
+                <div class="cc-amount">$299</div>
+                <div class="cc-guarantee">🔒 7-day bond-back guarantee</div>
+                <div class="cc-cta">Get Quote →</div>
+              </div>
+            </div>
+            <div class="carousel-link-bar">
+              <div class="carousel-link-headline">Fixed price from $299</div>
+              <div class="carousel-link-desc">Book online in 3 minutes</div>
+              <div class="carousel-cta">Get Quote</div>
+            </div>
+          </div>
+
+        </div><!-- /carousel-row -->
+
+        <div class="fb-engage">
+          <button>👍 Like</button>
+          <button>💬 Comment</button>
+          <button>↗ Share</button>
+        </div>
+      </div>
+
+      <div class="ad-meta">
+        <span class="tag">Replace CSS blocks with real before/after photos</span>
+        <span class="tag">Each card: 1080×1080</span>
+      </div>
+      <div class="export-hint">Upload 5 separate 1080×1080 images to carousel builder in Meta Ads Manager</div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 4 — VIDEO SCRIPT STORYBOARDS
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section class="ad-section" id="video">
+    <div class="ad-section-head">
+      <h2>Video Script Storyboards</h2>
+      <p>
+        Shoot vertically (9:16) for Reels/Stories. Add captions — 85% watched without sound.
+        These frames show the on-screen text at each moment.
+      </p>
+    </div>
+
+    <!-- 15-second EOL -->
+    <div class="section-divider">
+      <h3>15-Second — End-of-Lease (Reels/Stories)</h3>
+      <div class="section-divider-line"></div>
+      <span class="tag">Text-on-screen · No voiceover needed</span>
+    </div>
+
+    <div class="storyboard">
+
+      <div class="sb-frame">
+        <div class="sb-timecode">0s – 3s</div>
+        <div class="sb-visual">
+          <div class="sb-v-moving">Moving<br>out of<br>your rental?</div>
+        </div>
+        <div class="sb-text">Shot: front door or packing boxes. Text fades in fast.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">3s – 6s</div>
+        <div class="sb-visual" style="background:rgba(196,0,0,0.15);">
+          <div style="font-size:0.9rem; font-weight:800; color:#ff5252; text-align:center; line-height:1.2;">Don't lose<br>your bond.</div>
+        </div>
+        <div class="sb-text">Shot: close-up of dirty oven or bathroom. Red text for urgency.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">6s – 10s</div>
+        <div class="sb-visual">
+          <div>
+            <div class="sb-v-logo">Main10<span>Clean</span></div>
+            <div style="font-size:0.68rem; color:rgba(255,255,255,0.7); text-align:center; margin-top:4px;">End-of-lease specialists<br>Oven · Bathrooms · Carpets</div>
+          </div>
+        </div>
+        <div class="sb-text">Shot: team or clean interior. Brand name hold for 4 seconds.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">10s – 13s</div>
+        <div class="sb-visual">
+          <div class="sb-v-guarantee">🔒 7-day free<br>re-clean guarantee</div>
+        </div>
+        <div class="sb-text">Shot: photo report on phone or happy client. Green guarantee text.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">13s – 15s</div>
+        <div class="sb-visual">
+          <div class="sb-v-cta">
+            <div style="font-size:0.68rem; color:var(--amber)">Book now →</div>
+            <div style="font-size:0.6rem; margin-top:4px;">main10.com.au</div>
+          </div>
+        </div>
+        <div class="sb-text">Shot: URL on screen. Hold 2 seconds. Fade to black.</div>
+      </div>
+
+    </div>
+
+    <!-- 30-second Recurring -->
+    <div class="section-divider" style="margin-top: 32px;">
+      <h3>30-Second — Recurring Clean (Feed/Reels)</h3>
+      <div class="section-divider-line"></div>
+      <span class="tag">Voiceover or text-on-screen</span>
+    </div>
+
+    <div class="storyboard">
+
+      <div class="sb-frame">
+        <div class="sb-timecode">0s – 4s</div>
+        <div class="sb-visual">
+          <div style="font-size:0.75rem; font-weight:800; color:white; text-align:center; line-height:1.3; font-style:italic;">"What if cleaning just... handled itself?"</div>
+        </div>
+        <div class="sb-text">Hook: messy vs tidy split. Open with the dream.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">4s – 9s</div>
+        <div class="sb-visual">
+          <div>
+            <div class="sb-v-logo">Main10<span>Clean</span></div>
+            <div style="font-size:0.65rem; color:rgba(255,255,255,0.7); text-align:center; margin-top:4px;">vetted cleaners to<br>your home in Richmond</div>
+          </div>
+        </div>
+        <div class="sb-text">Shot: cleaner arriving at door, friendly intro. Suburb on screen.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">9s – 15s</div>
+        <div class="sb-visual">
+          <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+            <div style="font-size:0.68rem; color:rgba(255,255,255,0.9);">✓ Transparent pricing</div>
+            <div style="font-size:0.68rem; color:rgba(255,255,255,0.9);">✓ No lock-in contracts</div>
+            <div style="font-size:0.68rem; color:rgba(255,255,255,0.9);">✓ Same cleaner every visit</div>
+          </div>
+        </div>
+        <div class="sb-text">Shot: kitchen clean, bathroom clean. Fast cuts. Checklist animates in.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">15s – 22s</div>
+        <div class="sb-visual">
+          <div>
+            <div style="font-size:0.7rem; color:var(--amber); text-align:center; font-style:italic; line-height:1.4;">"Never had to think about it once."</div>
+            <div style="font-size:0.6rem; color:rgba(255,255,255,0.55); text-align:center; margin-top:6px;">⭐⭐⭐⭐⭐  Richmond client</div>
+          </div>
+        </div>
+        <div class="sb-text">Shot: satisfied client at home (real or testimonial text card).</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">22s – 27s</div>
+        <div class="sb-visual">
+          <div style="background:var(--amber); border-radius:8px; padding:8px 14px;">
+            <div style="font-size:0.78rem; font-weight:900; color:var(--navy); text-align:center;">10% off<br>your first clean</div>
+          </div>
+        </div>
+        <div class="sb-text">Shot: booking screen or phone. Offer holds for 5 seconds.</div>
+      </div>
+
+      <div class="sb-frame">
+        <div class="sb-timecode">27s – 30s</div>
+        <div class="sb-visual">
+          <div class="sb-v-cta">
+            <div style="font-size:0.65rem; color:white; text-align:center;">Book in 3 minutes</div>
+            <div style="font-size:0.6rem; color:var(--amber); margin-top:4px;">main10.com.au</div>
+          </div>
+        </div>
+        <div class="sb-text">URL hold. Optional voiceover: "Book in 3 minutes at main10.com.au"</div>
+      </div>
+
+    </div>
+
+    <div class="targeting-card" style="margin-top: 28px;">
+      <h4>Video Production Notes</h4>
+      <ul>
+        <li>Shoot vertically (9:16) for Reels/Stories; 16:9 for Feed — don't auto-crop</li>
+        <li>Captions are mandatory: 85% of Reels are watched without sound</li>
+        <li>First frame matters most — hold something ugly or striking for 0–2s to stop the scroll</li>
+        <li>Raw, phone-shot video often outperforms polished production for local service ads</li>
+        <li>Before/after is the highest-performing creative format for cleaning — prioritise getting real footage</li>
+      </ul>
+    </div>
+
+  </section>
+
+</div><!-- /page-body -->
+
+</body>
+</html>
