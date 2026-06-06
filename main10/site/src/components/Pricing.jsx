@@ -22,24 +22,24 @@ export default function Pricing() {
               key={tier.size}
               className={`relative flex flex-col rounded-xl2 border p-6 ${
                 tier.popular
-                  ? 'border-gold bg-surface shadow-lift ring-1 ring-gold'
+                  ? 'border-accent bg-surface shadow-lift ring-1 ring-accent'
                   : 'border-hair bg-surface shadow-card'
               }`}
             >
               {tier.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy-deep">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-accentink">
                   Most booked
                 </span>
               )}
               <h3 className="text-sm font-bold uppercase tracking-wide text-muted">
                 {tier.size}
               </h3>
-              <p className="mt-3 text-4xl font-black text-navy">
+              <p className="mt-3 text-4xl font-black text-heading">
                 ${tier.standard}
               </p>
               <p className="mt-1 text-sm text-muted">standard clean</p>
 
-              <div className="mt-4 rounded-lg bg-trust-light px-3 py-2 text-sm text-trust">
+              <div className="mt-4 rounded-lg bg-trustlight px-3 py-2 text-sm text-trust">
                 <span className="font-semibold">${tier.carpet}</span> with carpet
                 steam
               </div>
@@ -62,7 +62,7 @@ export default function Pricing() {
 
         <p className="mt-6 text-center text-sm text-muted">
           Agencies referring 5+ jobs a month qualify for volume pricing —{' '}
-          <a href="#agencies" className="font-semibold text-navy underline">
+          <a href="#agencies" className="font-semibold text-heading underline">
             see partnership benefits
           </a>
           .

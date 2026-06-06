@@ -2,12 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Theme tokens as "R G B" channel triplets so Tailwind opacity modifiers work.
+  Three approachable directions; default is Mint. Switched via [data-theme] on <html>.
+*/
 @layer base {
+  :root,
+  [data-theme='mint'] {
+    --c-canvas: 243 250 248;
+    --c-surface: 255 255 255;
+    --c-ink: 4 47 46;
+    --c-muted: 90 120 116;
+    --c-hair: 207 233 227;
+    --c-heading: 19 78 74;
+    --c-band: 15 61 58;
+    --c-accent: 132 204 22;
+    --c-accentdark: 101 163 13;
+    --c-accentink: 4 47 46;
+    --c-trust: 13 148 136;
+    --c-trustlight: 204 251 241;
+    --c-shadow: 13 61 58;
+    --c-display: 'Inter';
+  }
+
+  [data-theme='coral'] {
+    --c-canvas: 255 248 242;
+    --c-surface: 255 255 255;
+    --c-ink: 61 43 36;
+    --c-muted: 122 98 88;
+    --c-hair: 240 224 212;
+    --c-heading: 61 43 36;
+    --c-band: 61 43 36;
+    --c-accent: 255 93 82;
+    --c-accentdark: 232 72 61;
+    --c-accentink: 255 255 255;
+    --c-trust: 22 163 74;
+    --c-trustlight: 220 252 231;
+    --c-shadow: 61 43 36;
+    --c-display: 'Inter';
+  }
+
+  [data-theme='dark'] {
+    --c-canvas: 12 17 16;
+    --c-surface: 22 29 27;
+    --c-ink: 236 244 242;
+    --c-muted: 148 163 159;
+    --c-hair: 38 48 45;
+    --c-heading: 236 244 242;
+    --c-band: 8 12 11;
+    --c-accent: 52 211 153;
+    --c-accentdark: 16 185 129;
+    --c-accentink: 2 44 34;
+    --c-trust: 52 211 153;
+    --c-trustlight: 14 42 34;
+    --c-shadow: 0 0 0;
+    --c-display: 'Inter';
+  }
+
   html {
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-canvas text-ink antialiased;
+    @apply bg-canvas text-ink antialiased transition-colors duration-300;
   }
 }
 
@@ -19,16 +75,16 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
   }
   .btn-primary {
-    @apply btn bg-gold text-navy-deep shadow-card hover:bg-gold-dark hover:text-white focus-visible:ring-gold;
+    @apply btn bg-accent text-accentink shadow-card hover:bg-accentdark hover:text-white focus-visible:ring-accent;
   }
   .btn-ghost {
     @apply btn border border-white/30 bg-white/10 text-white hover:bg-white/20 focus-visible:ring-white;
   }
   .btn-outline {
-    @apply btn border border-hair bg-white text-navy hover:border-navy hover:bg-canvas focus-visible:ring-navy;
+    @apply btn border border-hair bg-surface text-heading hover:border-accent hover:bg-canvas focus-visible:ring-accent;
   }
   .eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.18em] text-gold-dark;
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-accentdark;
   }
   .section {
     @apply py-16 sm:py-20 lg:py-24;

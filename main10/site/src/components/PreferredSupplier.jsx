@@ -16,8 +16,8 @@ export default function PreferredSupplier() {
       <div className="container-x">
         <div className="overflow-hidden rounded-xl2 border border-hair bg-surface shadow-card">
           <div className="grid lg:grid-cols-2">
-            <div className="bg-navy-deep p-8 text-white sm:p-10">
-              <p className="eyebrow text-gold">For property managers</p>
+            <div className="bg-band p-8 text-white sm:p-10">
+              <p className="eyebrow text-accent">For property managers</p>
               <h2 className="mt-3 text-3xl font-black tracking-tight">
                 Preferred supplier partnerships
               </h2>
@@ -38,13 +38,13 @@ export default function PreferredSupplier() {
             </div>
 
             <div className="p-8 sm:p-10">
-              <h3 className="text-lg font-bold text-navy">
+              <h3 className="text-lg font-bold text-heading">
                 Agencies on our preferred list receive
               </h3>
               <ul className="mt-6 space-y-4">
                 {benefits.map((b) => (
                   <li key={b} className="flex gap-3 text-sm text-ink">
-                    <span className="grid h-6 w-6 flex-none place-items-center rounded-full bg-trust-light text-trust">
+                    <span className="grid h-6 w-6 flex-none place-items-center rounded-full bg-trustlight text-trust">
                       <Icon name="check" className="h-4 w-4" />
                     </span>
                     {b}

@@ -25,13 +25,13 @@ export default function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition ${
         scrolled
-          ? 'bg-navy-deep/95 shadow-lift backdrop-blur'
+          ? 'bg-band/95 shadow-lift backdrop-blur'
           : 'bg-transparent'
       }`}
     >
       <nav className="container-x flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-2 text-white">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold font-black text-navy-deep">
+          <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent font-black text-accentink">
             M
           </span>
           <span className="text-lg font-extrabold tracking-tight">Main10</span>
@@ -66,7 +66,7 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="border-t border-white/10 bg-navy-deep md:hidden">
+        <div className="border-t border-white/10 bg-band md:hidden">
           <div className="container-x flex flex-col gap-1 py-3">
             {links.map((l) => (
               <a

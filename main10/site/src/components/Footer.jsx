@@ -3,7 +3,7 @@ import Icon from './Icon'
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-deep text-white">
+    <footer className="bg-band text-white">
       {/* Final CTA */}
       <div className="border-b border-white/10">
         <div className="container-x flex flex-col items-center gap-6 py-14 text-center sm:py-16">
@@ -29,7 +29,7 @@ export default function Footer() {
       <div className="container-x grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold font-black text-navy-deep">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent font-black text-accentink">
               M
             </span>
             <span className="text-lg font-extrabold">Main10</span>

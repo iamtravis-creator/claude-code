@@ -17,12 +17,12 @@ export default function Suburbs() {
           {suburbs.map((s) => (
             <span
               key={s}
-              className="rounded-full border border-hair bg-surface px-4 py-2 text-sm font-medium text-navy shadow-card"
+              className="rounded-full border border-hair bg-surface px-4 py-2 text-sm font-medium text-heading shadow-card"
             >
               {s}
             </span>
           ))}
-          <span className="rounded-full bg-navy px-4 py-2 text-sm font-medium text-white">
+          <span className="rounded-full bg-band px-4 py-2 text-sm font-medium text-white">
             + all metro suburbs
           </span>
         </div>

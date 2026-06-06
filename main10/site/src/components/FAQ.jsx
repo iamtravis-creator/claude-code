@@ -24,10 +24,10 @@ export default function FAQ() {
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-semibold text-navy">{item.q}</span>
+                  <span className="font-semibold text-heading">{item.q}</span>
                   <span
-                    className={`grid h-7 w-7 flex-none place-items-center rounded-full border border-hair text-navy transition ${
-                      isOpen ? 'rotate-45 bg-navy text-white' : ''
+                    className={`grid h-7 w-7 flex-none place-items-center rounded-full border border-hair text-heading transition ${
+                      isOpen ? 'rotate-45 bg-band text-white' : ''
                     }`}
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">

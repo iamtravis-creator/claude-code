@@ -47,10 +47,10 @@ export default function QuoteCalculator() {
           <div className="rounded-xl2 border border-hair bg-surface p-6 shadow-card sm:p-8">
             {submitted ? (
               <div className="py-6 text-center">
-                <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-trust-light text-trust">
+                <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-trustlight text-trust">
                   <Icon name="check" className="h-8 w-8" />
                 </span>
-                <h3 className="mt-4 text-2xl font-black text-navy">
+                <h3 className="mt-4 text-2xl font-black text-heading">
                   Booking request received!
                 </h3>
                 <p className="mt-2 text-muted">
@@ -59,7 +59,7 @@ export default function QuoteCalculator() {
                   {details.suburb ? ` in ${details.suburb}` : ''} within 2
                   business hours.
                 </p>
-                <p className="mt-4 text-3xl font-black text-navy">${total}</p>
+                <p className="mt-4 text-3xl font-black text-heading">${total}</p>
                 <p className="text-sm text-muted">
                   {carpet ? 'incl. carpet steam' : 'standard clean'}
                 </p>
@@ -73,7 +73,7 @@ export default function QuoteCalculator() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="text-sm font-semibold text-navy">
+                  <label className="text-sm font-semibold text-heading">
                     Property size
                   </label>
                   <div className="mt-2 grid grid-cols-2 gap-2">
@@ -84,8 +84,8 @@ export default function QuoteCalculator() {
                         onClick={() => setBedrooms(t.size)}
                         className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition ${
                           bedrooms === t.size
-                            ? 'border-navy bg-navy text-white'
-                            : 'border-hair bg-white text-navy hover:border-navy'
+                            ? 'border-accent bg-band text-white'
+                            : 'border-hair bg-surface text-heading hover:border-accent'
                         }`}
                       >
                         {t.size}
@@ -94,15 +94,15 @@ export default function QuoteCalculator() {
                   </div>
                 </div>
 
-                <label className="flex cursor-pointer items-center justify-between rounded-lg border border-hair bg-white px-4 py-3">
-                  <span className="text-sm font-medium text-navy">
+                <label className="flex cursor-pointer items-center justify-between rounded-lg border border-hair bg-surface px-4 py-3">
+                  <span className="text-sm font-medium text-heading">
                     Add carpet steam clean
                   </span>
                   <input
                     type="checkbox"
                     checked={carpet}
                     onChange={(e) => setCarpet(e.target.checked)}
-                    className="h-5 w-5 accent-gold"
+                    className="h-5 w-5 accent-accent"
                   />
                 </label>
 
@@ -112,7 +112,7 @@ export default function QuoteCalculator() {
                     placeholder="Your name"
                     value={details.name}
                     onChange={(e) => setDetails({ ...details, name: e.target.value })}
-                    className="rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-navy focus:outline-none"
+                    className="rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-accent focus:outline-none"
                   />
                   <input
                     required
@@ -120,19 +120,19 @@ export default function QuoteCalculator() {
                     placeholder="Phone"
                     value={details.phone}
                     onChange={(e) => setDetails({ ...details, phone: e.target.value })}
-                    className="rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-navy focus:outline-none"
+                    className="rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-accent focus:outline-none"
                   />
                 </div>
                 <input
                   placeholder="Suburb"
                   value={details.suburb}
                   onChange={(e) => setDetails({ ...details, suburb: e.target.value })}
-                  className="w-full rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-navy focus:outline-none"
+                  className="w-full rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-accent focus:outline-none"
                 />
 
-                <div className="flex items-center justify-between rounded-lg bg-navy-deep px-4 py-3 text-white">
+                <div className="flex items-center justify-between rounded-lg bg-band px-4 py-3 text-white">
                   <span className="text-sm text-white/70">Your fixed price</span>
-                  <span className="text-2xl font-black text-gold">${total}</span>
+                  <span className="text-2xl font-black text-accent">${total}</span>
                 </div>
 
                 <button type="submit" className="btn-primary w-full text-base">

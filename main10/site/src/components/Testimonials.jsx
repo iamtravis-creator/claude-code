@@ -18,7 +18,7 @@ export default function Testimonials() {
               key={t.name}
               className="flex flex-col rounded-xl2 border border-hair bg-surface p-6 shadow-card"
             >
-              <div className="flex gap-0.5 text-gold">
+              <div className="flex gap-0.5 text-accent">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Icon key={i} name="star" className="h-4 w-4" />
                 ))}
@@ -27,7 +27,7 @@ export default function Testimonials() {
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-5 border-t border-hair pt-4">
-                <p className="text-sm font-bold text-navy">{t.name}</p>
+                <p className="text-sm font-bold text-heading">{t.name}</p>
                 <p className="text-xs text-muted">{t.detail}</p>
               </figcaption>
             </figure>

@@ -22,10 +22,10 @@ export default function Features() {
               key={f.title}
               className="group rounded-xl2 border border-hair bg-surface p-6 shadow-card transition hover:-translate-y-1 hover:shadow-lift"
             >
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-trust-light text-trust transition group-hover:bg-trust group-hover:text-white">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-trustlight text-trust transition group-hover:bg-trust group-hover:text-white">
                 <Icon name={f.icon} />
               </span>
-              <h3 className="mt-5 text-lg font-bold text-navy">{f.title}</h3>
+              <h3 className="mt-5 text-lg font-bold text-heading">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{f.body}</p>
             </div>
           ))}

@@ -2,10 +2,10 @@ import Icon from './Icon'
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-navy-deep text-white">
+    <section id="top" className="relative overflow-hidden bg-band text-white">
       {/* ambient background */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
         <div className="absolute right-0 top-40 h-80 w-80 rounded-full bg-trust/20 blur-3xl" />
         <div
           className="absolute inset-0 opacity-[0.06]"
@@ -26,7 +26,7 @@ export default function Hero() {
             </span>
             <h1 className="mt-6 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               Get your full bond back.
-              <span className="block text-gold">Or we come back free.</span>
+              <span className="block text-accent">Or we come back free.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-white/75">
               Melbourne&apos;s end-of-lease cleaning specialists. Fixed prices,
@@ -64,11 +64,11 @@ export default function Hero() {
           <div className="relative">
             <div className="rounded-xl2 border border-white/10 bg-white/[0.06] p-6 shadow-lift backdrop-blur">
               <div className="flex items-center gap-3">
-                <span className="grid h-12 w-12 place-items-center rounded-full bg-gold text-navy-deep">
+                <span className="grid h-12 w-12 place-items-center rounded-full bg-accent text-accentink">
                   <Icon name="shield" className="h-7 w-7" />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-gold">The Main10 Guarantee</p>
+                  <p className="text-sm font-semibold text-accent">The Main10 Guarantee</p>
                   <p className="text-xs text-white/60">Backed in writing</p>
                 </div>
               </div>
@@ -83,7 +83,7 @@ export default function Hero() {
                   ['$0', 'Re-clean cost'],
                 ].map(([n, l]) => (
                   <div key={l} className="rounded-lg bg-white/5 p-3">
-                    <dt className="text-xl font-black text-gold">{n}</dt>
+                    <dt className="text-xl font-black text-accent">{n}</dt>
                     <dd className="mt-1 text-[11px] leading-tight text-white/65">{l}</dd>
                   </div>
                 ))}
