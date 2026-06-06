@@ -25,6 +25,9 @@
       --radius:     10px;
       --shadow:     0 4px 20px rgba(0,0,0,0.08);
       --transition: 0.2s ease;
+      --focus-ring: 0 0 0 3px rgba(240,165,0,0.45);
+      --error:      #d32f2f;
+      --error-lt:   #fce4e4;
     }
 
     /* ── Reset & base ────────────────────────────────────────────────────── */
@@ -321,7 +324,11 @@
       color: var(--text);
     }
     .form-group select:focus,
-    .form-group input:focus { outline: none; border-color: var(--primary); }
+    .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: var(--focus-ring); }
+    .form-group.has-error select,
+    .form-group.has-error input { border-color: var(--error); box-shadow: 0 0 0 3px rgba(211,47,47,0.15); }
+    .field-error { color: var(--error); font-size: 0.78rem; margin-top: 5px; display: none; }
+    .field-error.visible { display: block; }
     .addon-row {
       display: flex; align-items: center; justify-content: space-between;
       background: var(--bg); border: 2px solid var(--border);
@@ -511,6 +518,36 @@
     #quote-success .success-icon { font-size: 4rem; margin-bottom: 16px; }
     #quote-success h3 { margin-bottom: 12px; color: var(--green); }
     #quote-success p { color: var(--muted); }
+
+    /* ── Secondary / back button ────────────────────────────────────────── */
+    .btn-secondary {
+      background: transparent; color: var(--muted); border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg); border-color: var(--primary); color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* ── Submit loading state ────────────────────────────────────────────── */
+    .btn[aria-busy="true"] { opacity: 0.72; cursor: wait; pointer-events: none; }
+    .btn[aria-busy="true"]::after {
+      content: ''; display: inline-block; width: 14px; height: 14px;
+      border: 2px solid currentColor; border-top-color: transparent;
+      border-radius: 50%; animation: btn-spin 0.6s linear infinite;
+      margin-left: 8px; vertical-align: -3px;
+    }
+    @keyframes btn-spin { to { transform: rotate(360deg); } }
+
+    /* ── Success fade-in ─────────────────────────────────────────────────── */
+    #quote-success { animation: fadeUp 0.4s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Keyboard focus for wizard tabs and addon rows ───────────────────── */
+    .wizard-step:focus-visible { box-shadow: inset var(--focus-ring); }
+    .addon-row:focus-visible   { box-shadow: var(--focus-ring); }
 
     /* ── Utility ─────────────────────────────────────────────────────────── */
     .text-center { text-align: center; }
@@ -855,37 +892,40 @@
     <div class="wizard-card">
 
       <!-- Step indicators -->
-      <div class="wizard-steps">
-        <div class="wizard-step active" id="step-tab-1">1. Property</div>
-        <div class="wizard-step" id="step-tab-2">2. Add-ons</div>
-        <div class="wizard-step" id="step-tab-3">3. Date</div>
-        <div class="wizard-step" id="step-tab-4">4. Contact</div>
+      <div class="wizard-steps" role="tablist" aria-label="Booking steps">
+        <div class="wizard-step active" id="step-tab-1" role="tab" tabindex="0" aria-selected="true"  aria-controls="step-1">1. Property</div>
+        <div class="wizard-step"        id="step-tab-2" role="tab" tabindex="-1" aria-selected="false" aria-controls="step-2">2. Add-ons</div>
+        <div class="wizard-step"        id="step-tab-3" role="tab" tabindex="-1" aria-selected="false" aria-controls="step-3">3. Date</div>
+        <div class="wizard-step"        id="step-tab-4" role="tab" tabindex="-1" aria-selected="false" aria-controls="step-4">4. Contact</div>
       </div>
 
       <!-- Step 1: Property details -->
       <div class="wizard-panel active" id="step-1">
-        <div class="form-group">
+        <div class="form-group" id="fg-bedrooms">
           <label for="wiz-bedrooms">Number of bedrooms *</label>
-          <select id="wiz-bedrooms">
+          <select id="wiz-bedrooms" aria-required="true" aria-describedby="err-bedrooms">
             <option value="">Select bedrooms…</option>
             <option value="1" data-price="299">1 Bedroom — $299</option>
             <option value="2" data-price="389">2 Bedrooms — $389 (most popular)</option>
             <option value="3" data-price="489">3 Bedrooms — $489</option>
             <option value="4" data-price="589">4+ Bedrooms — $589</option>
           </select>
+          <div class="field-error" id="err-bedrooms" role="alert">Please select number of bedrooms.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="fg-bathrooms">
           <label for="wiz-bathrooms">Number of bathrooms *</label>
-          <select id="wiz-bathrooms">
+          <select id="wiz-bathrooms" aria-required="true" aria-describedby="err-bathrooms">
             <option value="">Select bathrooms…</option>
             <option value="1">1 Bathroom</option>
             <option value="2">2 Bathrooms (+$60)</option>
             <option value="3">3 Bathrooms (+$120)</option>
           </select>
+          <div class="field-error" id="err-bathrooms" role="alert">Please select number of bathrooms.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="fg-suburb">
           <label for="wiz-suburb">Suburb *</label>
-          <input type="text" id="wiz-suburb" placeholder="e.g. Richmond, St Kilda, Brunswick…" />
+          <input type="text" id="wiz-suburb" placeholder="e.g. Richmond, St Kilda, Brunswick…" aria-required="true" aria-describedby="err-suburb" />
+          <div class="field-error" id="err-suburb" role="alert">Please enter your suburb.</div>
         </div>
         <div class="wizard-nav">
           <button class="btn btn-primary" onclick="wizNext(1)">Next — Add-ons →</button>
@@ -898,35 +938,35 @@
           Tick what you'd like included. Carpet steam is recommended — most agents note carpet condition.
         </p>
 
-        <div class="addon-row checked" id="addon-carpet" onclick="toggleAddon('carpet', this)">
+        <div class="addon-row checked" id="addon-carpet" role="button" tabindex="0" aria-pressed="true"  onclick="toggleAddon('carpet', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAddon('carpet',this)}">
           <label for="cb-carpet">
             <input type="checkbox" id="cb-carpet" checked onchange="updateTotal()" />
             🧹 Carpet Steam Clean <span style="font-size:0.8rem;color:var(--muted);font-weight:400">(recommended)</span>
           </label>
           <span class="addon-price" id="carpet-price-label">+$140</span>
         </div>
-        <div class="addon-row" id="addon-oven" onclick="toggleAddon('oven', this)">
+        <div class="addon-row" id="addon-oven" role="button" tabindex="0" aria-pressed="false" onclick="toggleAddon('oven', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAddon('oven',this)}">
           <label for="cb-oven">
             <input type="checkbox" id="cb-oven" onchange="updateTotal()" />
             🔥 Oven Deep Clean <span style="font-size:0.8rem;color:var(--muted);font-weight:400">(incl. in all packages)</span>
           </label>
           <span class="addon-price">Included</span>
         </div>
-        <div class="addon-row" id="addon-fridge" onclick="toggleAddon('fridge', this)">
+        <div class="addon-row" id="addon-fridge" role="button" tabindex="0" aria-pressed="false" onclick="toggleAddon('fridge', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAddon('fridge',this)}">
           <label for="cb-fridge">
             <input type="checkbox" id="cb-fridge" onchange="updateTotal()" />
             ❄️ Fridge &amp; Freezer Clean
           </label>
           <span class="addon-price">+$65</span>
         </div>
-        <div class="addon-row" id="addon-balcony" onclick="toggleAddon('balcony', this)">
+        <div class="addon-row" id="addon-balcony" role="button" tabindex="0" aria-pressed="false" onclick="toggleAddon('balcony', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAddon('balcony',this)}">
           <label for="cb-balcony">
             <input type="checkbox" id="cb-balcony" onchange="updateTotal()" />
             🏠 Balcony / Outdoor Area
           </label>
           <span class="addon-price">+$55</span>
         </div>
-        <div class="addon-row" id="addon-walls" onclick="toggleAddon('walls', this)">
+        <div class="addon-row" id="addon-walls" role="button" tabindex="0" aria-pressed="false" onclick="toggleAddon('walls', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAddon('walls',this)}">
           <label for="cb-walls">
             <input type="checkbox" id="cb-walls" onchange="updateTotal()" />
             🖼️ Full Wall Wash (heavy marks)
@@ -935,20 +975,22 @@
         </div>
 
         <div class="wizard-nav">
-          <button class="btn btn-outline" style="color:var(--primary);border-color:var(--border)" onclick="wizBack(2)">← Back</button>
+          <button class="btn btn-secondary" onclick="wizBack(2)">← Back</button>
           <button class="btn btn-primary" onclick="wizNext(2)">Next — Choose Date →</button>
         </div>
       </div>
 
       <!-- Step 3: Date -->
       <div class="wizard-panel" id="step-3">
-        <div class="form-group">
+        <div class="form-group" id="fg-vacate">
           <label for="wiz-vacate">Vacate date *</label>
-          <input type="date" id="wiz-vacate" />
+          <input type="date" id="wiz-vacate" aria-required="true" aria-describedby="err-vacate" />
+          <div class="field-error" id="err-vacate" role="alert">Please enter your vacate date.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="fg-cleandate">
           <label for="wiz-cleandate">Preferred clean date *</label>
-          <input type="date" id="wiz-cleandate" />
+          <input type="date" id="wiz-cleandate" aria-required="true" aria-describedby="err-cleandate" />
+          <div class="field-error" id="err-cleandate" role="alert">Please enter your preferred clean date.</div>
         </div>
         <p style="font-size:0.85rem;color:var(--muted);margin-top:-12px;margin-bottom:20px">
           We recommend cleaning 1–2 days before your vacate inspection.
@@ -963,24 +1005,27 @@
           </select>
         </div>
         <div class="wizard-nav">
-          <button class="btn btn-outline" style="color:var(--primary);border-color:var(--border)" onclick="wizBack(3)">← Back</button>
+          <button class="btn btn-secondary" onclick="wizBack(3)">← Back</button>
           <button class="btn btn-primary" onclick="wizNext(3)">Next — Your Details →</button>
         </div>
       </div>
 
       <!-- Step 4: Contact + Afterpay -->
       <div class="wizard-panel" id="step-4">
-        <div class="form-group">
+        <div class="form-group" id="fg-name">
           <label for="wiz-name">Your name *</label>
-          <input type="text" id="wiz-name" placeholder="Full name" />
+          <input type="text" id="wiz-name" placeholder="Full name" aria-required="true" aria-describedby="err-name" autocomplete="name" />
+          <div class="field-error" id="err-name" role="alert">Please enter your name.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="fg-email">
           <label for="wiz-email">Email address *</label>
-          <input type="email" id="wiz-email" placeholder="you@email.com" />
+          <input type="email" id="wiz-email" placeholder="you@email.com" aria-required="true" aria-describedby="err-email" autocomplete="email" />
+          <div class="field-error" id="err-email" role="alert">Please enter a valid email address.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="fg-phone">
           <label for="wiz-phone">Mobile number *</label>
-          <input type="tel" id="wiz-phone" placeholder="04XX XXX XXX" />
+          <input type="tel" id="wiz-phone" placeholder="04XX XXX XXX" aria-required="true" aria-describedby="err-phone" autocomplete="tel" />
+          <div class="field-error" id="err-phone" role="alert">Please enter your mobile number.</div>
         </div>
         <div class="form-group">
           <label for="wiz-agent-email">Agent's email (optional)</label>
@@ -1003,13 +1048,13 @@
         </div>
 
         <div class="wizard-nav">
-          <button class="btn btn-outline" style="color:var(--primary);border-color:var(--border)" onclick="wizBack(4)">← Back</button>
-          <button class="btn btn-primary btn-lg" onclick="submitQuote()">Confirm My Booking →</button>
+          <button class="btn btn-secondary" onclick="wizBack(4)">← Back</button>
+          <button class="btn btn-primary btn-lg" id="btn-submit" onclick="submitQuote()">Confirm My Booking →</button>
         </div>
       </div>
 
       <!-- Success -->
-      <div id="quote-success">
+      <div id="quote-success" role="status" tabindex="-1">
         <div class="success-icon">🎉</div>
         <h3>Booking Confirmed!</h3>
         <p>
@@ -1199,12 +1244,15 @@
       </p>
     </div>
     <div class="logos-strip mt-24">
-      <div class="pm-logo-placeholder">Ray White<br><span style="font-weight:400;text-transform:none;font-size:0.72rem">(partnership pending)</span></div>
-      <div class="pm-logo-placeholder">Hocking Stuart<br><span style="font-weight:400;text-transform:none;font-size:0.72rem">(partnership pending)</span></div>
-      <div class="pm-logo-placeholder">Barry Plant<br><span style="font-weight:400;text-transform:none;font-size:0.72rem">(partnership pending)</span></div>
-      <div class="pm-logo-placeholder">Jellis Craig<br><span style="font-weight:400;text-transform:none;font-size:0.72rem">(partnership pending)</span></div>
-      <div class="pm-logo-placeholder">Nelson Alexander<br><span style="font-weight:400;text-transform:none;font-size:0.72rem">(partnership pending)</span></div>
+      <div class="pm-logo-placeholder">Ray White</div>
+      <div class="pm-logo-placeholder">Hocking Stuart</div>
+      <div class="pm-logo-placeholder">Barry Plant</div>
+      <div class="pm-logo-placeholder">Jellis Craig</div>
+      <div class="pm-logo-placeholder">Nelson Alexander</div>
     </div>
+    <p class="text-center mt-16" style="font-size:0.82rem;color:var(--muted)">
+      Agency logos shown pending confirmed preferred supplier agreements — replace with actual logos when partnerships are signed.
+    </p>
   </div>
 </section>
 
@@ -1409,11 +1457,35 @@ function updateTotal() {
 document.getElementById('wiz-bedrooms').addEventListener('change', updateTotal);
 document.getElementById('wiz-bathrooms').addEventListener('change', updateTotal);
 
+/* ── Inline validation helpers ────────────────────────────────────────── */
+function showError(fieldId, groupId) {
+  const grp = document.getElementById(groupId);
+  const err = document.getElementById('err-' + fieldId);
+  grp.classList.add('has-error');
+  if (err) err.classList.add('visible');
+}
+function clearError(fieldId, groupId) {
+  const grp = document.getElementById(groupId);
+  const err = document.getElementById('err-' + fieldId);
+  grp.classList.remove('has-error');
+  if (err) err.classList.remove('visible');
+}
+// Clear errors on input
+['wiz-bedrooms','wiz-bathrooms','wiz-suburb','wiz-vacate','wiz-cleandate','wiz-name','wiz-email','wiz-phone'].forEach(id => {
+  const map = { 'wiz-bedrooms':'fg-bedrooms','wiz-bathrooms':'fg-bathrooms','wiz-suburb':'fg-suburb',
+                'wiz-vacate':'fg-vacate','wiz-cleandate':'fg-cleandate','wiz-name':'fg-name',
+                'wiz-email':'fg-email','wiz-phone':'fg-phone' };
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('change', () => clearError(id.replace('wiz-',''), map[id]));
+  if (el) el.addEventListener('input',  () => clearError(id.replace('wiz-',''), map[id]));
+});
+
 /* ── Addon toggle ─────────────────────────────────────────────────────── */
 function toggleAddon(id, row) {
   const cb = document.getElementById('cb-' + id);
   if (event.target !== cb) cb.checked = !cb.checked;
   row.classList.toggle('checked', cb.checked);
+  row.setAttribute('aria-pressed', cb.checked ? 'true' : 'false');
   updateTotal();
 }
 
@@ -1424,20 +1496,25 @@ function setStep(n) {
     const tab   = document.getElementById('step-tab-' + i);
     panel.classList.toggle('active', i === n);
     tab.classList.remove('active', 'done');
+    tab.setAttribute('aria-selected', i === n ? 'true' : 'false');
+    tab.setAttribute('tabindex', i === n ? '0' : '-1');
     if (i === n)  tab.classList.add('active');
     if (i < n)    tab.classList.add('done');
   }
 }
 
 function wizNext(from) {
+  let valid = true;
   if (from === 1) {
-    if (!document.getElementById('wiz-bedrooms').value) { alert('Please select number of bedrooms.'); return; }
-    if (!document.getElementById('wiz-bathrooms').value) { alert('Please select number of bathrooms.'); return; }
-    if (!document.getElementById('wiz-suburb').value.trim()) { alert('Please enter your suburb.'); return; }
+    if (!document.getElementById('wiz-bedrooms').value) { showError('bedrooms','fg-bedrooms'); valid = false; }
+    if (!document.getElementById('wiz-bathrooms').value) { showError('bathrooms','fg-bathrooms'); valid = false; }
+    if (!document.getElementById('wiz-suburb').value.trim()) { showError('suburb','fg-suburb'); valid = false; }
+    if (!valid) { document.getElementById('wiz-bedrooms').focus(); return; }
   }
   if (from === 3) {
-    if (!document.getElementById('wiz-vacate').value)    { alert('Please enter your vacate date.'); return; }
-    if (!document.getElementById('wiz-cleandate').value) { alert('Please enter your preferred clean date.'); return; }
+    if (!document.getElementById('wiz-vacate').value)    { showError('vacate','fg-vacate'); valid = false; }
+    if (!document.getElementById('wiz-cleandate').value) { showError('cleandate','fg-cleandate'); valid = false; }
+    if (!valid) { document.getElementById('wiz-vacate').focus(); return; }
   }
   updateTotal();
   setStep(from + 1);
@@ -1450,14 +1527,25 @@ function submitQuote() {
   const name  = document.getElementById('wiz-name').value.trim();
   const email = document.getElementById('wiz-email').value.trim();
   const phone = document.getElementById('wiz-phone').value.trim();
-  if (!name)  { alert('Please enter your name.'); return; }
-  if (!email) { alert('Please enter your email address.'); return; }
-  if (!phone) { alert('Please enter your mobile number.'); return; }
+  let valid = true;
+  if (!name)  { showError('name','fg-name');   valid = false; }
+  if (!email || !email.includes('@')) { showError('email','fg-email'); valid = false; }
+  if (!phone) { showError('phone','fg-phone'); valid = false; }
+  if (!valid) { document.getElementById('wiz-name').focus(); return; }
 
-  // Hide wizard, show success
-  document.querySelector('.wizard-steps').style.display = 'none';
-  for (let i = 1; i <= 4; i++) document.getElementById('step-' + i).style.display = 'none';
-  document.getElementById('quote-success').style.display = 'block';
+  // Show loading state
+  const btn = document.getElementById('btn-submit');
+  btn.setAttribute('aria-busy', 'true');
+  btn.textContent = 'Confirming…';
+
+  // Simulate async submission (replace with real API call)
+  setTimeout(() => {
+    btn.removeAttribute('aria-busy');
+    document.querySelector('.wizard-steps').style.display = 'none';
+    for (let i = 1; i <= 4; i++) document.getElementById('step-' + i).style.display = 'none';
+    document.getElementById('quote-success').style.display = 'block';
+    document.getElementById('quote-success').focus();
+  }, 900);
 }
 
 /* ── FAQ accordion ────────────────────────────────────────────────────── */
@@ -1472,6 +1560,13 @@ function toggleFaq(btn) {
     btn.classList.add('open');
   }
 }
+
+/* ── Date input minimums ──────────────────────────────────────────────── */
+(function() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('wiz-vacate').min    = today;
+  document.getElementById('wiz-cleandate').min = today;
+})();
 
 /* ── Suburb landing page ──────────────────────────────────────────────── */
 const SUBURB_MAP = {
