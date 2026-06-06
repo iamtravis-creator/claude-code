@@ -6,6 +6,11 @@
   <title>Main10 Cleaning — Bond-Back Guarantee | Melbourne End-of-Lease Specialists</title>
   <meta name="description" content="Melbourne's end-of-lease cleaning specialists. Fixed prices, 7-day re-clean guarantee. Get your full bond back or we come back free." />
 
+  <!-- Web font: Inter — systematic, readable, professional -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <!-- Suburb-targeted canonical — JS sets this dynamically -->
   <link rel="canonical" id="canonical-link" href="https://main10.com.au/" />
 
@@ -28,13 +33,24 @@
       --focus-ring: 0 0 0 3px rgba(240,165,0,0.45);
       --error:      #d32f2f;
       --error-lt:   #fce4e4;
+      /* 8px-base spacing scale */
+      --space-1:  8px;
+      --space-2:  16px;
+      --space-3:  24px;
+      --space-4:  32px;
+      --space-5:  40px;
+      --space-6:  48px;
+      --space-8:  64px;
+      --space-10: 80px;
+      /* motion */
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* ── Reset & base ────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -60,9 +76,9 @@
     }
 
     /* ── Typography ──────────────────────────────────────────────────────── */
-    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; }
-    h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; line-height: 1.25; }
-    h3 { font-size: 1.25rem; font-weight: 700; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
     .eyebrow {
       font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--accent);
@@ -83,6 +99,7 @@
       border-color: var(--accent);
     }
     .btn-primary:hover { background: var(--accent-dk); border-color: var(--accent-dk); text-decoration: none; }
+    .btn:active { transform: scale(0.97); }
     .btn-outline {
       background: transparent; color: var(--surface);
       border-color: rgba(255,255,255,0.6);
@@ -192,12 +209,44 @@
     .section-title h2 { margin-bottom: 12px; }
     .section-title .lead { margin-top: 8px; }
 
-    /* ── Why choose us ───────────────────────────────────────────────────── */
-    #why { background: var(--surface); }
-    .why-card {
-      background: var(--bg); border-radius: var(--radius);
-      padding: 28px 24px; border: 1px solid var(--border);
+    /* ── How It Works ────────────────────────────────────────────────────── */
+    #how-it-works { background: var(--surface); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3);
+      counter-reset: step;
     }
+    @media (max-width: 900px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .steps-grid { grid-template-columns: 1fr; } }
+    .step-card {
+      background: var(--bg); border-radius: var(--radius);
+      padding: var(--space-4) var(--space-3); border: 1px solid var(--border);
+      position: relative; transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+    .step-number {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--primary); color: #fff; font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--space-2);
+    }
+    .step-card h3 { margin-bottom: 6px; font-size: 1.05rem; }
+    .step-card p  { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    /* connector line between steps on desktop */
+    .step-card::after {
+      content: '→'; position: absolute; top: 44px; right: -18px;
+      color: var(--border); font-size: 1.2rem; font-weight: 400;
+    }
+    .step-card:last-child::after { content: none; }
+    @media (max-width: 900px) { .step-card::after { content: none; } }
+
+    /* ── Why choose us ───────────────────────────────────────────────────── */
+    #why { background: var(--bg); }
+    .why-card {
+      background: var(--surface); border-radius: var(--radius);
+      padding: 28px 24px; border: 1px solid var(--border);
+      transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+    .why-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
     .why-icon { font-size: 2rem; margin-bottom: 14px; }
     .why-card h3 { margin-bottom: 8px; }
     .why-card p { font-size: 0.9rem; color: var(--muted); }
@@ -253,7 +302,8 @@
       text-align: center; transition: var(--transition);
       position: relative;
     }
-    .price-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+    .price-card:hover { border-color: var(--primary); box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-4px); }
+    .price-card { transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s ease; }
     .price-card.popular {
       border-color: var(--accent); background: var(--surface);
     }
@@ -293,8 +343,17 @@
       padding: 40px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
       max-width: 700px; margin: 0 auto;
     }
+    .wizard-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; gap: 16px; flex-wrap: wrap;
+    }
+    .wizard-running-total {
+      font-size: 0.85rem; font-weight: 700; color: var(--primary);
+      background: var(--green-lt); border: 1px solid var(--green);
+      border-radius: 100px; padding: 4px 14px; white-space: nowrap;
+    }
     .wizard-steps {
-      display: flex; gap: 0; margin-bottom: 36px; border-radius: var(--radius);
+      display: flex; gap: 0; flex: 1; margin-bottom: 16px; border-radius: var(--radius);
       overflow: hidden; border: 1px solid var(--border);
     }
     .wizard-step {
@@ -307,7 +366,11 @@
     .wizard-step.active { background: var(--primary); color: #fff; }
     .wizard-step.done { background: var(--green); color: #fff; }
     .wizard-panel { display: none; }
-    .wizard-panel.active { display: block; }
+    .wizard-panel.active { display: block; animation: wizIn 0.22s var(--ease-out); }
+    @keyframes wizIn {
+      from { opacity: 0; transform: translateX(10px); }
+      to   { opacity: 1; transform: none; }
+    }
     .form-group { margin-bottom: 20px; }
     .form-group label {
       display: block; font-weight: 700; font-size: 0.9rem;
@@ -465,10 +528,22 @@
       align-items: center; gap: 16px; color: var(--text);
     }
     .faq-q:hover { color: var(--primary); }
-    .faq-q .arrow { font-size: 1.2rem; transition: transform 0.2s; flex-shrink: 0; }
-    .faq-q.open .arrow { transform: rotate(180deg); }
-    .faq-a { display: none; padding: 0 0 20px; font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
-    .faq-a.open { display: block; }
+    .faq-q .arrow {
+      font-size: 1rem; transition: transform 0.3s var(--ease-out); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%; background: var(--bg);
+      color: var(--primary);
+    }
+    .faq-q.open .arrow { transform: rotate(180deg); background: var(--primary); color: #fff; }
+    /* grid-rows animation — no JS height calculation needed */
+    .faq-a {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s var(--ease-out);
+    }
+    .faq-a.open { grid-template-rows: 1fr; }
+    .faq-inner { overflow: hidden; padding-bottom: 0; transition: padding-bottom 0.3s var(--ease-out); }
+    .faq-a.open .faq-inner { padding-bottom: 20px; }
+    .faq-inner p, .faq-inner div { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
 
     /* ── Footer ──────────────────────────────────────────────────────────── */
     footer {
@@ -565,8 +640,9 @@
     <a href="#" class="logo">main<span>10</span></a>
     <div id="nav-menu">
       <ul>
-        <li><a href="#checklist">What We Clean</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#checklist">What We Clean</a></li>
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -639,6 +715,47 @@
     <span class="trust-item">✅ REIV Checklist Compliant</span>
   </div>
 </div>
+
+<!-- ────────────────────────────────────────────────────────── HOW IT WORKS -->
+<section id="how-it-works" class="section">
+  <div class="container">
+    <div class="section-title text-center">
+      <span class="eyebrow">Simple 4-step process</span>
+      <h2>From Booking to Bond Back</h2>
+      <p class="lead" style="margin:0 auto">Book online in 60 seconds. We handle the rest.</p>
+    </div>
+    <div class="steps-grid mt-24">
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Get your fixed price</h3>
+        <p>Enter your property details in our quote wizard. Instant price — no call-backs, no haggling.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>We clean to REIV standard</h3>
+        <p>Our team follows the Victorian condition report checklist room-by-room. Oven, bathrooms, carpets — every detail.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Receive your photo report</h3>
+        <p>Timestamped before-and-after photos emailed to you (and your agent if you want) within 2 hours of completion.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3>Get your bond back</h3>
+        <p>Agent flags something? We're back within 24 hours, free. No fuss. Most customers get every dollar returned.</p>
+      </div>
+
+    </div>
+    <div class="text-center mt-24">
+      <a href="#quote" class="btn btn-primary btn-lg">Start My Quote →</a>
+    </div>
+  </div>
+</section>
 
 <!-- ────────────────────────────────────────────────────────── WHY US -->
 <section id="why" class="section">
@@ -891,13 +1008,16 @@
     </div>
     <div class="wizard-card">
 
-      <!-- Step indicators -->
-      <div class="wizard-steps" role="tablist" aria-label="Booking steps">
+      <!-- Step indicators + live price -->
+      <div class="wizard-header">
+        <div class="wizard-steps" role="tablist" aria-label="Booking steps" style="margin-bottom:0">
         <div class="wizard-step active" id="step-tab-1" role="tab" tabindex="0" aria-selected="true"  aria-controls="step-1">1. Property</div>
         <div class="wizard-step"        id="step-tab-2" role="tab" tabindex="-1" aria-selected="false" aria-controls="step-2">2. Add-ons</div>
         <div class="wizard-step"        id="step-tab-3" role="tab" tabindex="-1" aria-selected="false" aria-controls="step-3">3. Date</div>
         <div class="wizard-step"        id="step-tab-4" role="tab" tabindex="-1" aria-selected="false" aria-controls="step-4">4. Contact</div>
-      </div>
+        </div><!-- end .wizard-steps -->
+        <div class="wizard-running-total" id="running-total" aria-live="polite">From $389</div>
+      </div><!-- end .wizard-header -->
 
       <!-- Step 1: Property details -->
       <div class="wizard-panel active" id="step-1">
@@ -1289,72 +1409,72 @@
     <div class="faq-list">
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           What does the 7-day re-clean guarantee actually cover?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          If your property manager or agent raises any cleaning-related issues at your vacate inspection — or within 7 calendar days of that inspection — we'll return and remedy those specific areas at no additional charge. The only condition is that you notify us within that 7-day window and provide us the agent's written feedback (email, text, or condition report copy).
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>If your property manager or agent raises any cleaning-related issues at your vacate inspection — or within 7 calendar days of that inspection — we'll return and remedy those specific areas at no additional charge. The only condition is that you notify us within that 7-day window and provide us the agent's written feedback (email, text, or condition report copy).</p></div>
         </div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           How far in advance do I need to book?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          We accept bookings with as little as 48 hours' notice, subject to availability. We recommend booking as soon as you know your vacate date — slots during month-end periods (especially 28th–1st) fill up fast. Use the quote wizard above to check availability for your preferred date.
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>We accept bookings with as little as 48 hours' notice, subject to availability. We recommend booking as soon as you know your vacate date — slots during month-end periods (especially 28th–1st) fill up fast. Use the quote wizard above to check availability for your preferred date.</p></div>
         </div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           Do I need to be home during the clean?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          Not at all. Most customers drop off keys beforehand or arrange access through their agent. We'll send you real-time photo updates throughout the clean so you can see progress from wherever you are. We'll lock up and return keys when we're done.
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Not at all. Most customers drop off keys beforehand or arrange access through their agent. We'll send you real-time photo updates throughout the clean so you can see progress from wherever you are. We'll lock up and return keys when we're done.</p></div>
         </div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           Is carpet steam cleaning included in the base price?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          Carpet steam clean is an optional add-on (strongly recommended — it's the most common bond deduction). It's pre-selected in our quote wizard so you don't forget, but you can uncheck it if your property has no carpet or you've arranged it separately. See the pricing table above for per-bedroom carpet steam pricing.
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Carpet steam clean is an optional add-on (strongly recommended — it's the most common bond deduction). It's pre-selected in our quote wizard so you don't forget, but you can uncheck it if your property has no carpet or you've arranged it separately. See the pricing table above for per-bedroom carpet steam pricing.</p></div>
         </div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           Can I pay with Afterpay?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          Yes — we accept Afterpay, allowing you to split the cost into 4 interest-free fortnightly payments. This is particularly useful when your bond is still held and you need to pay for the clean out of pocket. Select Afterpay when confirming your booking.
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Yes — we accept Afterpay, allowing you to split the cost into 4 interest-free fortnightly payments. This is particularly useful when your bond is still held and you need to pay for the clean out of pocket. Select Afterpay when confirming your booking.</p></div>
         </div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           What if the property is in really bad condition?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          Our fixed prices cover standard end-of-lease condition — normal use over a tenancy. For properties with heavy grease buildup, mould, pet odours, or excessive damage, we may need to discuss a supplementary fee. We'll always flag this when you call or message to confirm the booking, never on the day.
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Our fixed prices cover standard end-of-lease condition — normal use over a tenancy. For properties with heavy grease buildup, mould, pet odours, or excessive damage, we may need to discuss a supplementary fee. We'll always flag this when you call or message to confirm the booking, never on the day.</p></div>
         </div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           Do you provide a receipt / invoice for my records?
-          <span class="arrow">▾</span>
+          <span class="arrow" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-a">
-          Yes. You'll receive a detailed tax invoice and the photo report via email within 2 hours of the clean completing. Hang onto both — agents and VCAT occasionally request them as evidence during bond disputes.
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Yes. You'll receive a detailed tax invoice and the photo report via email within 2 hours of the clean completing. Hang onto both — agents and VCAT occasionally request them as evidence during bond disputes.</p></div>
         </div>
       </div>
 
@@ -1452,6 +1572,8 @@ function updateTotal() {
 
   document.getElementById('quote-total-display').textContent = '$' + total;
   document.getElementById('afterpay-instalment').textContent  = '$' + (total / 4).toFixed(2);
+  const rt = document.getElementById('running-total');
+  if (rt) rt.textContent = 'Quote: $' + total;
 }
 
 document.getElementById('wiz-bedrooms').addEventListener('change', updateTotal);
@@ -1554,10 +1676,14 @@ function toggleFaq(btn) {
   const isOpen = answer.classList.contains('open');
   // Close all
   document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-q.open').forEach(q => q.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.classList.remove('open');
+    q.setAttribute('aria-expanded', 'false');
+  });
   if (!isOpen) {
     answer.classList.add('open');
     btn.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
   }
 }
 
