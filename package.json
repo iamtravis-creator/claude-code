@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "framer-motion": "^12.40.0",
     "quill-delta-to-react": "^1.2.0"
   }
 }
