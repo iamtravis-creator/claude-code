@@ -1,10 +1,11 @@
-name: Deploy quill-delta demo to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - 'examples/quill-delta-demo/**'
+      - 'main10/coming-soon.html'
 
   workflow_dispatch:
 
@@ -29,17 +30,20 @@ jobs:
           cache: npm
           cache-dependency-path: examples/quill-delta-demo/package-lock.json
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build quill-delta demo
+        run: npm install && npm run build
         working-directory: examples/quill-delta-demo
 
-      - name: Build
-        run: npm run build
-        working-directory: examples/quill-delta-demo
+      - name: Assemble site
+        run: |
+          mkdir -p _site/quill-delta-demo
+          mkdir -p _site/main10
+          cp -r examples/quill-delta-demo/dist/. _site/quill-delta-demo/
+          cp main10/coming-soon.html _site/main10/index.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: examples/quill-delta-demo/dist
+          path: _site
 
   deploy:
     needs: build
