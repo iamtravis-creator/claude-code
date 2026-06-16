@@ -1,0 +1,58 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getDb } from '@/lib/db';
+import { randomUUID } from 'crypto';
+
+export async function GET(req: NextRequest) {
+  const db = getDb();
+  const { searchParams } = new URL(req.url);
+  const contact_id = searchParams.get('contact_id') || '';
+  const deal_id = searchParams.get('deal_id') || '';
+  const status = searchParams.get('status') || '';
+  const priority = searchParams.get('priority') || '';
+  const due_before = searchParams.get('due_before') || '';
+
+  let sql = `
+    SELECT t.*, c.name as contact_name, d.title as deal_title
+    FROM tasks t
+    LEFT JOIN contacts c ON t.contact_id = c.id
+    LEFT JOIN deals d ON t.deal_id = d.id
+    WHERE 1=1
+  `;
+  const params: string[] = [];
+
+  if (contact_id) { sql += ' AND t.contact_id = ?'; params.push(contact_id); }
+  if (deal_id) { sql += ' AND t.deal_id = ?'; params.push(deal_id); }
+  if (status) { sql += ' AND t.status = ?'; params.push(status); }
+  if (priority) { sql += ' AND t.priority = ?'; params.push(priority); }
+  if (due_before) { sql += ' AND t.due_date <= ?'; params.push(due_before); }
+  sql += ' ORDER BY t.due_date ASC NULLS LAST, t.created_at DESC';
+
+  const data = db.prepare(sql).all(...params);
+  return NextResponse.json({ data });
+}
+
+export async function POST(req: NextRequest) {
+  const db = getDb();
+  const body = await req.json();
+  const now = new Date().toISOString();
+  const id = randomUUID();
+
+  db.prepare(`
+    INSERT INTO tasks (id, title, description, status, priority, due_date, contact_id, deal_id, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    id, body.title, body.description ?? null,
+    body.status ?? 'open', body.priority ?? 'medium',
+    body.due_date ?? null, body.contact_id ?? null, body.deal_id ?? null,
+    now, now,
+  );
+
+  const data = db.prepare(`
+    SELECT t.*, c.name as contact_name, d.title as deal_title
+    FROM tasks t
+    LEFT JOIN contacts c ON t.contact_id = c.id
+    LEFT JOIN deals d ON t.deal_id = d.id
+    WHERE t.id = ?
+  `).get(id);
+  return NextResponse.json({ data }, { status: 201 });
+}
