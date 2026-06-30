@@ -1,0 +1,259 @@
+---
+layout: base.njk
+pagination:
+  data: suburbs
+  size: 1
+  alias: suburb
+permalink: /cleaning/{{ suburb.slug }}/
+eleventyComputed:
+  title: "Home Cleaning {{ suburb.name }} | Main10 Clean Melbourne"
+  description: "Professional home cleaning in {{ suburb.name }}, Melbourne. Vetted cleaners, transparent pricing, easy online booking. End-of-lease from $299."
+---
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">✦ Cleaning in {{ suburb.name }}, {{ suburb.postcode }}</div>
+      <h1>Home Cleaning in {{ suburb.name }} — Reliable, Transparent, Local</h1>
+      <p class="hero-sub">
+        Whether you're a renter in a busy {{ suburb.name }} share house, a family in a terrace,
+        or a professional who'd rather spend Sunday at {{ suburb.landmark }} than scrubbing
+        bathrooms — Main10 Clean has you covered.
+      </p>
+      <div class="hero-actions">
+        <a href="#book" class="btn btn-primary btn-lg">Book a Clean in {{ suburb.name }} →</a>
+        <div class="hero-offer">10% off your first clean</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Our Services in {{ suburb.name }}</h2>
+      <p>Recurring cleans, end-of-lease, or a full spring deep clean — we cover it all.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon" aria-hidden="true">🔄</div>
+        <h3>Regular Clean</h3>
+        <p>
+          All the essentials: kitchen surfaces, bathroom, vacuum and mop throughout,
+          dusting, and bins. Ideal for {{ suburb.name }} households who want a consistent,
+          reliable clean every week or fortnight.
+        </p>
+        <span class="service-price">From $35/hr</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" aria-hidden="true">🔑</div>
+        <h3>End-of-Lease Clean</h3>
+        <p>
+          Moving out of your {{ suburb.name }} rental? Our end-of-lease clean is designed to
+          get your bond back — oven, fridge, carpets, windows, and everything your
+          agent checks, with a 7-day re-clean guarantee.
+        </p>
+        <span class="service-price">From $299 fixed</span>
+        <br>
+        <a class="service-cta-link" href="/end-of-lease/">Learn more →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" aria-hidden="true">✨</div>
+        <h3>Spring / Deep Clean</h3>
+        <p>
+          A full-home reset for moving in, post-renovation, or the start of a new
+          season. We go beyond the regular surfaces: skirting boards, light fittings,
+          behind appliances, and anything your home needs.
+        </p>
+        <span class="service-price">From $55/hr</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY MAIN10 ── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>Why Main10 Clean in {{ suburb.name }}?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon" aria-hidden="true">🔒</div>
+        <div>
+          <h3>Vetted and insured</h3>
+          <p>Every cleaner is background-checked. We carry public liability insurance, so your home and belongings are covered.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon" aria-hidden="true">📍</div>
+        <div>
+          <h3>Locals you can trust</h3>
+          <p>We regularly clean homes across {{ suburb.name }} and {{ suburb.nearby }}, so we know the area and the kinds of homes here.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon" aria-hidden="true">💬</div>
+        <div>
+          <h3>No surprises</h3>
+          <p>You get a clear quote upfront. If anything changes, we tell you before we start — not after.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="section" id="pricing">
+  <div class="container--narrow">
+    <div class="section-head">
+      <h2>Pricing in {{ suburb.name }}</h2>
+      <p>Transparent rates — no hidden fees, no lock-in contracts.</p>
+    </div>
+    <table class="price-table" aria-label="Cleaning service prices">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>What's included</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Regular Clean</strong></td>
+          <td>Kitchen, bathroom, vacuum &amp; mop, dusting</td>
+          <td class="price-tag">From $35/hr</td>
+        </tr>
+        <tr>
+          <td><strong>Deep Clean</strong></td>
+          <td>As above + skirting boards, behind appliances, light fittings</td>
+          <td class="price-tag">From $55/hr</td>
+        </tr>
+        <tr>
+          <td><strong>EOL — Studio</strong></td>
+          <td>Full vacate clean + photo report + 7-day guarantee</td>
+          <td class="price-tag">$299 fixed</td>
+        </tr>
+        <tr>
+          <td><strong>EOL — 1 Bed</strong></td>
+          <td>Full vacate clean + photo report + 7-day guarantee</td>
+          <td class="price-tag">$389 fixed</td>
+        </tr>
+        <tr>
+          <td><strong>EOL — 2 Bed</strong></td>
+          <td>Full vacate clean + photo report + 7-day guarantee</td>
+          <td class="price-tag">$489 fixed</td>
+        </tr>
+        <tr>
+          <td><strong>EOL — 3–4 Bed</strong></td>
+          <td>Full vacate clean + photo report + 7-day guarantee</td>
+          <td class="price-tag">From $589</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price-table-note">
+      First-clean 10% discount applied at checkout · Carpet steam cleaning available from +$89 · All prices include GST
+    </p>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="section section-alt">
+  <div class="container--narrow">
+    <div class="section-head">
+      <h2>What {{ suburb.name }} Clients Say</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars" aria-label="5 stars">★★★★★</div>
+        <p class="review-text">"{{ suburb.review1 }}"</p>
+        <div class="review-author">{{ suburb.reviewer1 }}</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars" aria-label="5 stars">★★★★★</div>
+        <p class="review-text">"{{ suburb.review2 }}"</p>
+        <div class="review-author">{{ suburb.reviewer2 }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section">
+  <div class="container--narrow">
+    <div class="section-head">
+      <h2>FAQs for {{ suburb.name }}</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Do I need to be home during the clean?
+          <span class="arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>No — most of our {{ suburb.name }} clients aren't home when we clean. We use key safes, lockboxes, or building concierge access. Just let us know your preference when booking and we'll handle the rest.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Is parking easy in {{ suburb.name }}?
+          <span class="arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>{{ suburb.parking }} If there's anything unusual about your address, mention it in the booking notes.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Do you clean with pets in the home?
+          <span class="arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Yes. We use products that are safe around pets and kids. If your pet is anxious around strangers, let us know and we'll coordinate timing or access to make it easier.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Do you offer recurring clean discounts?
+          <span class="arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>Yes. Weekly cleans get 15% off, fortnightly cleans get 10% off, and every first-time booking includes 10% off regardless of frequency. Discounts are applied automatically at checkout.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Do I need to supply cleaning products?
+          <span class="arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-inner"><p>No. We bring everything — all products, equipment, and supplies. If you have a preference for specific products (e.g. fragrance-free for allergies), let us know and we'll accommodate it.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ── -->
+<section class="cta-banner" id="book">
+  <div class="container">
+    <h2>Ready for a Cleaner Home in {{ suburb.name }}?</h2>
+    <p>Book your clean online in under 3 minutes. No lock-in contract.</p>
+    <div class="cta-banner-actions">
+      <a href="/#quote" class="btn btn-primary btn-lg">Book Your Clean →</a>
+      <a href="/#pricing" class="btn btn-secondary" style="color:rgba(255,255,255,0.8); border-color:rgba(255,255,255,0.3);">See Pricing</a>
+    </div>
+  </div>
+</section>

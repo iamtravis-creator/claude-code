@@ -1,0 +1,13 @@
+{
+  "name": "main10-clean",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Main10 Clean — Melbourne end-of-lease cleaning specialists",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
