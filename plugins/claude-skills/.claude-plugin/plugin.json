@@ -1,0 +1,22 @@
+{
+  "name": "claude-skills",
+  "description": "348 production-ready skill packages across 18 domains: engineering, marketing, C-level advisory, product, regulatory/QMS, compliance-os, project management, business growth, finance, productivity, research, research-ops, business-operations, commercial, markdown-html, and loop-library. Includes Python tools, reference documents, agents, and slash commands.",
+  "version": "2.10.3",
+  "author": {
+    "name": "Alireza Rezvani",
+    "url": "https://alirezarezvani.com"
+  },
+  "homepage": "https://github.com/alirezarezvani/claude-skills",
+  "license": "MIT",
+  "keywords": [
+    "engineering",
+    "marketing",
+    "product",
+    "compliance",
+    "c-level",
+    "project-management",
+    "finance",
+    "research",
+    "agent-skills"
+  ]
+}
