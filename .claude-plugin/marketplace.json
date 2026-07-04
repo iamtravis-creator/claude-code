@@ -156,6 +156,17 @@
       },
       "source": "./plugins/bash-safety",
       "category": "development"
+    },
+    {
+      "name": "claude-skills",
+      "description": "348 production-ready skill packages across 18 domains: engineering, marketing, C-level advisory, product, regulatory/QMS, compliance-os, project management, business growth, finance, productivity, research, research-ops, business-operations, commercial, markdown-html, and loop-library.",
+      "version": "2.10.3",
+      "author": {
+        "name": "Alireza Rezvani",
+        "url": "https://alirezarezvani.com"
+      },
+      "source": "./plugins/claude-skills",
+      "category": "productivity"
     }
   ]
 }
