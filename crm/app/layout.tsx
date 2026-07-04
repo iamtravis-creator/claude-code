@@ -3,8 +3,8 @@ import './globals.css';
 import Sidebar from '@/components/layout/Sidebar';
 
 export const metadata: Metadata = {
-  title: 'CRM',
-  description: 'Customer Relationship Manager',
+  title: 'CleanCo CRM',
+  description: 'Cleaning Services CRM',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
