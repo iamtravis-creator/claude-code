@@ -1,4 +1,5 @@
 .DS_Store
+.next/
 
 # Local environment files — never commit secrets
 .env
