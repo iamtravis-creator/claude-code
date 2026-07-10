@@ -3,7 +3,7 @@ import { pricing } from '../data/site'
 import Icon from './Icon'
 
 export default function QuoteCalculator() {
-  const [bedrooms, setBedrooms] = useState(pricing[1].size)
+  const [bedrooms, setBedrooms] = useState((pricing[1] ?? pricing[0]).size)
   const [carpet, setCarpet] = useState(false)
   const [details, setDetails] = useState({ name: '', phone: '', suburb: '' })
   const [submitted, setSubmitted] = useState(false)
@@ -118,6 +118,8 @@ export default function QuoteCalculator() {
                     required
                     type="tel"
                     placeholder="Phone"
+                    pattern="[0-9 +\-() ]{6,20}"
+                    title="Please enter a valid phone number"
                     value={details.phone}
                     onChange={(e) => setDetails({ ...details, phone: e.target.value })}
                     className="rounded-lg border border-hair px-4 py-2.5 text-sm focus:border-accent focus:outline-none"

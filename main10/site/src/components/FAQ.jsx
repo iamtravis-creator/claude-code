@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { faqs } from '../data/site'
 
 export default function FAQ() {
-  const [open, setOpen] = useState(0)
+  const [open, setOpen] = useState(-1)
 
   return (
     <section id="faq" className="section bg-canvas">

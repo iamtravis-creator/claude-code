@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const THEMES = [
   { id: 'mint', label: 'Fresh Mint', swatch: '#0d9488', dot: '#84cc16' },
@@ -15,6 +15,7 @@ export function applyTheme(id) {
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState('mint')
   const [open, setOpen] = useState(false)
+  const ref = useRef(null)
 
   // Restore the saved theme on mount.
   useEffect(() => {
@@ -25,6 +26,14 @@ export default function ThemeSwitcher() {
     }
   }, [])
 
+  // Dismiss picker when clicking outside.
+  useEffect(() => {
+    if (!open) return
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
   const choose = (id) => {
     setTheme(id)
     applyTheme(id)
@@ -33,7 +42,7 @@ export default function ThemeSwitcher() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-[60] flex flex-col items-end gap-2">
+    <div ref={ref} className="fixed bottom-5 right-5 z-[60] flex flex-col items-end gap-2">
       {open && (
         <div className="overflow-hidden rounded-2xl border border-hair bg-surface p-1.5 shadow-lift">
           {THEMES.map((t) => (

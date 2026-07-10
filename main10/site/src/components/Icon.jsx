@@ -49,6 +49,10 @@ const paths = {
 }
 
 export default function Icon({ name, className = 'h-6 w-6' }) {
+  if (!paths[name]) {
+    if (import.meta.env.DEV) console.warn(`Icon: unknown name "${name}"`)
+    return null
+  }
   return (
     <svg
       viewBox="0 0 24 24"

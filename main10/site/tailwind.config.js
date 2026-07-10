@@ -25,7 +25,6 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['var(--c-display)', 'Inter', 'sans-serif'],
       },
       boxShadow: {
         card: '0 1px 3px rgb(var(--c-shadow) / 0.06), 0 8px 24px rgb(var(--c-shadow) / 0.06)',
