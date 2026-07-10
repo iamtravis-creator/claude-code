@@ -1,0 +1,9 @@
+{
+  "name": "obsidian",
+  "version": "1.0.0",
+  "description": "Read and write notes in an Obsidian vault: create notes with proper frontmatter/wikilinks, manage daily notes, search by tag or content, and audit link health",
+  "author": {
+    "name": "Claude Code"
+  },
+  "keywords": ["obsidian", "notes", "markdown", "knowledge-management", "wikilinks", "pkm"]
+}
