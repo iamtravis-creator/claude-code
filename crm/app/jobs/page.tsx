@@ -8,11 +8,12 @@ import Input from '@/components/ui/Input';
 import JobList from '@/components/jobs/JobList';
 import JobCalendar from '@/components/jobs/JobCalendar';
 import JobForm from '@/components/jobs/JobForm';
+import RecurringScheduleList from '@/components/recurring/RecurringScheduleList';
 import { JobWithRefs, JobStatus, Job } from '@/lib/types';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
-type ViewMode = 'list' | 'calendar';
+type ViewMode = 'list' | 'calendar' | 'recurring';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -110,9 +111,11 @@ export default function JobsPage() {
       <PageHeader
         title="Jobs"
         action={
-          <Button onClick={() => setNewJobModal(true)}>
-            + New Job
-          </Button>
+          view !== 'recurring' ? (
+            <Button onClick={() => setNewJobModal(true)}>
+              + New Job
+            </Button>
+          ) : undefined
         }
       />
 
@@ -142,50 +145,65 @@ export default function JobsPage() {
           >
             Calendar View
           </button>
-        </div>
-
-        {/* Status filter */}
-        <div className="w-44">
-          <Select
-            id="status-filter"
-            value={statusFilter}
-            onChange={e => setStatusFilter(e.target.value)}
-            options={STATUS_FILTER_OPTIONS}
-          />
-        </div>
-
-        {/* Date range */}
-        <div className="flex items-end gap-2">
-          <Input
-            id="date-from"
-            type="date"
-            label="From"
-            value={dateFrom}
-            onChange={e => setDateFrom(e.target.value)}
-          />
-          <Input
-            id="date-to"
-            type="date"
-            label="To"
-            value={dateTo}
-            onChange={e => setDateTo(e.target.value)}
-          />
-        </div>
-
-        {/* Clear filters */}
-        {(statusFilter || dateFrom || dateTo) && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => { setStatusFilter(''); setDateFrom(''); setDateTo(''); }}
+          <button
+            type="button"
+            onClick={() => setView('recurring')}
+            className={`px-4 py-2 text-sm font-medium border-l border-gray-300 transition-colors ${
+              view === 'recurring'
+                ? 'bg-blue-600 text-white'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
           >
-            Clear filters
-          </Button>
+            Recurring
+          </button>
+        </div>
+
+        {/* Status + date filters — hidden on recurring tab */}
+        {view !== 'recurring' && (
+          <>
+            <div className="w-44">
+              <Select
+                id="status-filter"
+                value={statusFilter}
+                onChange={e => setStatusFilter(e.target.value)}
+                options={STATUS_FILTER_OPTIONS}
+              />
+            </div>
+
+            <div className="flex items-end gap-2">
+              <Input
+                id="date-from"
+                type="date"
+                label="From"
+                value={dateFrom}
+                onChange={e => setDateFrom(e.target.value)}
+              />
+              <Input
+                id="date-to"
+                type="date"
+                label="To"
+                value={dateTo}
+                onChange={e => setDateTo(e.target.value)}
+              />
+            </div>
+
+            {(statusFilter || dateFrom || dateTo) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => { setStatusFilter(''); setDateFrom(''); setDateTo(''); }}
+              >
+                Clear filters
+              </Button>
+            )}
+          </>
         )}
       </div>
 
       {/* Content */}
-      {loading ? (
+      {view === 'recurring' ? (
+        <RecurringScheduleList />
+      ) : loading ? (
         <div className="flex items-center justify-center py-20 text-gray-400">
           <p className="text-sm">Loading jobs…</p>
         </div>

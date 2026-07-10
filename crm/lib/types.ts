@@ -275,3 +275,12 @@ export interface QuoteWithRefs extends Quote {
   service_name?: string;
   items?: QuoteItem[];
 }
+
+export interface RecurringScheduleWithRefs extends RecurringSchedule {
+  contact_name?: string;
+  property_address?: string;
+  property_city?: string;
+  property_state?: string;
+  service_name?: string;
+  service_category?: string;
+}
